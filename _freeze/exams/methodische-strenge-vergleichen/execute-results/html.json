@@ -1,0 +1,15 @@
+{
+  "hash": "62152d51891de45b6aa60551727d7b2a",
+  "result": {
+    "engine": "knitr",
+    "markdown": "\n::: {.cell}\n::: {.cell-output .cell-output-stderr}\n\n```\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.4     ✔ readr     2.1.6\n✔ forcats   1.0.1     ✔ stringr   1.6.0\n✔ ggplot2   4.0.1     ✔ tibble    3.3.1\n✔ lubridate 1.9.4     ✔ tidyr     1.3.2\n✔ purrr     1.2.0     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors\n```\n\n\n:::\n:::\n\n\n\nQuestion\n========\n### Übung {{< iconify fa7-solid:person-digging >}} {.unnumbered .h3short}\n\nForschergruppe A hat an einer Stichprobe von 20 Grundschulen in Baden-Württemberg über drei Monate hinweg eine wöchentliche “bewegte Pause” für Lehrkräfte angeboten. Die Maßnahme wurde am Ende des Zeitraumes evaluiert und es zeigte sich, dass teilnehmende Lehrkräfte signifikant höhere Werte beim subjektiven Wohlbefinden in einem Fragebogen angaben, als zu Beginn der Maßnahme und auch im Vergleich zu einer Kontrollgruppe von Grundschullehrkräften, die ein solches Angebot nicht erhalten hatten. Die Forschenden leiten daraus eine Empfehlung zur Fortführung der Maßnahme ab.\n\nForschergruppe B hat an einer Stichprobe von 20 Grundschulen in ganz Deutschland über drei Monate hinweg eine wöchentliche “bewegte Pause” für Lehrkräfte angeboten. Die Maßnahme wurde am Ende des Zeitraumes evaluiert und es zeigte sich, dass teilnehmende Lehrkräfte signifikant höhere Werte beim subjektiven Wohlbefinden in einem Fragebogen angaben, als zu Beginn der Maßnahme und auch im Vergleich zu einer Kontrollgruppe von Grundschullehrkräften, die ein solches Angebot nicht erhalten hatten. Die Forschenden leiten daraus eine Empfehlung zur Fortführung der Maßnahme ab.\n\n> Worin unterscheiden sich die beiden Studien?\n\n\n\\begin{answerlist}\n  \\item Externe Validität\n  \\item Interne Validität\n  \\item Ethische Strenge\n  \\item Präsentationsqualität\n\\end{answerlist}\n\nSolution\n========\n\n\n::: {.cell}\n\n:::\n\n\n\n\nMeta-information\n================\nexname: Unterschied_wiss_Guetekrit_erkennen_2\nextype: mchoice\nexsolution: 1000\nexshuffle: true",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "index.qmd": {
+    "index.html": "bedd693c"
+  },
+  "Einfache lineare Regression.qmd": {
+    "Einfache lineare Regression.html": "214b02b5"
+  },
+  "exams/Grundbegriffe-Regression-erkennen.Rmd": {
+    "Grundbegriffe-Regression-erkennen.html": "9c47ea91"
+  },
+  "exams/regressionsebene-interpretieren.Rmd": {
+    "regressionsebene-interpretieren.html": "c6738747"
+  },
+  "exams/Deskriptive_Explorative_Explanative_Praediktive_Studien_Laengsschnitt.Rmd": {
+    "Deskriptive_Explorative_Explanative_Praediktive_Studien_Laengsschnitt.html": "ab4dc103"
+  },
+  "exams/Deskriptive_Explorative_Explanative_Studien_r.Rmd": {
+    "Deskriptive_Explorative_Explanative_Studien_r.html": "e380e6d0"
+  },
+  "exams/Scatterplot-BESD-zuordnen.Rmd": {
+    "Scatterplot-BESD-zuordnen.html": "7cc1896d"
+  },
+  "exams/einfache-reg-rechteck.Rmd": {
+    "einfache-reg-rechteck.html": "3ccb0e6e"
+  },
+  "exams/Laengsschnitttliche_Studie_erkennen.Rmd": {
+    "Laengsschnitttliche_Studie_erkennen.html": "eede5dd7"
+  },
+  "exams/g3classsize_g3tmathss_graph_sc.Rmd": {
+    "g3classsize_g3tmathss_graph_sc.html": "4c3c912a"
+  },
+  "exams/methodische-strenge-vergleichen.Rmd": {
+    "methodische-strenge-vergleichen.html": "1c657a35"
+  },
+  "exams/BESD-Scatterplot-zuordnen.Rmd": {
+    "BESD-Scatterplot-zuordnen.html": "12006394"
+  },
+  "Multiple lineare Regression.qmd": {
+    "Multiple lineare Regression.html": "dfc0cb38"
+  },
+  "Strukturgleichungsmodellierung Ein Überblick.qmd": {
+    "Strukturgleichungsmodellierung Ein Überblick.html": "4524996b"
+  },
+  "Latente Variablen und Messmodelle.qmd": {
+    "Latente Variablen und Messmodelle.html": "e0e49218"
+  }
+}
