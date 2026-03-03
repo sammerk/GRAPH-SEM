@@ -19,6 +19,9 @@ website:
       - Multiple lineare Regression.qmd
       - Strukturgleichungsmodellierung Ein Überblick.qmd
       - Latente Variablen und Messmodelle.qmd 
+      - Messmodelle und Konfirmatorische Faktorenanalyse.qmd
+      - Konfirmatorische Faktorenanalyse - Worked Out Example.qmd
+      - Latent Change Score Models.qmd
 
 format:
   live-html:

@@ -1,0 +1,28 @@
+---
+title: "Konfirmatorische Faktorenanalyse - Worked Out Example"
+---
+
+# Datengrundlage
+Wir verwenden in diesem Beispiel Daten des Tenesssse Student Teacher Achievement Ratio (STAR) Projekts, das in den 1980er Jahren durchgeführt wurde. In diesem Projekt wurden Schüler:innen über mehrere Jahre hinweg begleitet, um die Auswirkungen von Klassengröße auf die akademische Leistung zu untersuchen. Die Daten enthalten Informationen über verschiedene Aspekte der Schüler*innen, wie z.B. ihre akademischen Leistungen, Verhaltensweisen und sozioökonomischen Hintergrund.
+
+Für die konfirmatorische Faktorenanalyse verwenden wir die Items des **STUDENT PARTICIPATION QUESTIONNAIRE** (STPQ), der von Lehrer:innen ausgefüllt wurde, um die Beteiligung der Schüler:innen am Unterricht zu bewerten. 
+
+Wir arbeiten heute mit 10 Items, die den Skalen *Engagement*,  *Initiative* und *N = Nonparticipatory Behavior* zugeordnet werden können.
+
+| Skala | Wortlaut | Itemname |
+|:------|:---------|:---------|
+| E+ | pays attention in class | `g4ptattn` |
+| E- | loses, forgets, or misplaces materials | `g4ptmtrl` |
+| E- | comes late to class | `g4ptlate` |
+| E+ | completes assigned seat work | `g4ptwork` |
+| E+ | is persistent when confronted with difficult problems | `g4ptpers` |
+| N+ | needs to be reprimanded | `g4ptrepr` |
+| N+ | annoys or interferes with peers' work | `g4ptanoy` |
+| I+ | participates actively in discussions | `g4ptdisc` |
+| I+ | does more than just the assigned work | `g4ptextr` |
+| I+ | engages teacher in conversation about subject matter before or after school, or outside of class | `g4ptdiss` |
+
+: {tbl-colwidths="[5,75,20]"}
+
+Alle Items wurden auf einer 5-stufigen Skala von 1 = nie bis 5 = immer bewertet.
+

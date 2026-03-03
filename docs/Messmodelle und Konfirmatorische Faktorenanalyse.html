@@ -8,7 +8,7 @@
 
 <meta name="author" content="Samuel Merk">
 
-<title>Latente Variablen und Messmodelle – Strukturgleichungsmodellierung</title>
+<title>Messmodelle und Konfirmatorische Faktorenanalyse – Strukturgleichungsmodellierung</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -101,6 +101,35 @@ div.csl-indent {
 <script type="module" src="site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
 <link href="site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="brand.css">
 <link rel="stylesheet" href="exams/webex.css">
@@ -127,7 +156,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Latente Variablen und Messmodelle.html">Latente Variablen und Messmodelle</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Messmodelle und Konfirmatorische Faktorenanalyse.html">Messmodelle und Konfirmatorische Faktorenanalyse</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -171,14 +200,26 @@ div.csl-indent {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Latente Variablen und Messmodelle.html" class="sidebar-item-text sidebar-link active">
+  <a href="./Latente Variablen und Messmodelle.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Latente Variablen und Messmodelle</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Messmodelle und Konfirmatorische Faktorenanalyse.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Messmodelle un Konfirmatorische Faktorenanalyse</span></a>
+  <a href="./Messmodelle und Konfirmatorische Faktorenanalyse.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Messmodelle und Konfirmatorische Faktorenanalyse</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Konfirmatorische Faktorenanalyse - Worked Out Example.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Konfirmatorische Faktorenanalyse - Worked Out Example</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Latent Change Score Models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Latent Change Score Models</span></a>
   </div>
 </li>
     </ul>
@@ -191,10 +232,21 @@ div.csl-indent {
     <h2 id="toc-title">Auf dieser Seite</h2>
    
   <ul>
-  <li><a href="#latente-und-manifeste-variablen" id="toc-latente-und-manifeste-variablen" class="nav-link active" data-scroll-target="#latente-und-manifeste-variablen"><span class="header-section-number">1</span> Latente und manifeste Variablen</a>
+  <li><a href="#messmodelle-und-klassische-testtheorie" id="toc-messmodelle-und-klassische-testtheorie" class="nav-link active" data-scroll-target="#messmodelle-und-klassische-testtheorie"><span class="header-section-number">1</span> Messmodelle und Klassische Testtheorie</a></li>
+  <li><a href="#die-grundidee-konfirmatorischer-faktorenanalysen" id="toc-die-grundidee-konfirmatorischer-faktorenanalysen" class="nav-link" data-scroll-target="#die-grundidee-konfirmatorischer-faktorenanalysen"><span class="header-section-number">2</span> Die Grundidee konfirmatorischer Faktorenanalysen</a></li>
+  <li><a href="#die-quantifizierung-der-modellpassung" id="toc-die-quantifizierung-der-modellpassung" class="nav-link" data-scroll-target="#die-quantifizierung-der-modellpassung"><span class="header-section-number">3</span> Die Quantifizierung der Modellpassung</a>
   <ul class="collapse">
-  <li><a href="#kriterien-für-manifeste-variablen" id="toc-kriterien-für-manifeste-variablen" class="nav-link" data-scroll-target="#kriterien-für-manifeste-variablen"><span class="header-section-number">1.1</span> Kriterien für manifeste Variablen</a></li>
-  <li><a href="#reflektive-und-formative-messmodelle" id="toc-reflektive-und-formative-messmodelle" class="nav-link" data-scroll-target="#reflektive-und-formative-messmodelle"><span class="header-section-number">1.2</span> Reflektive und formative Messmodelle</a></li>
+  <li><a href="#quantifizierung-der-passung-eines-messmodells" id="toc-quantifizierung-der-passung-eines-messmodells" class="nav-link" data-scroll-target="#quantifizierung-der-passung-eines-messmodells"><span class="header-section-number">3.1</span> Quantifizierung der Passung eines Messmodells</a></li>
+  <li><a href="#das-tau-kongenerische-messmodell" id="toc-das-tau-kongenerische-messmodell" class="nav-link" data-scroll-target="#das-tau-kongenerische-messmodell"><span class="header-section-number">3.2</span> Das <span class="math inline">\(\tau\)</span>-kongenerische Messmodell</a></li>
+  <li><a href="#das-messmodell-in-matrixnotation" id="toc-das-messmodell-in-matrixnotation" class="nav-link" data-scroll-target="#das-messmodell-in-matrixnotation"><span class="header-section-number">3.3</span> Das Messmodell in Matrixnotation</a></li>
+  <li><a href="#herleitung-der-implizierten-kovarianzmatrix" id="toc-herleitung-der-implizierten-kovarianzmatrix" class="nav-link" data-scroll-target="#herleitung-der-implizierten-kovarianzmatrix"><span class="header-section-number">3.4</span> Herleitung der implizierten Kovarianzmatrix</a></li>
+  <li><a href="#struktur-der-implizierten-kovarianzmatrix" id="toc-struktur-der-implizierten-kovarianzmatrix" class="nav-link" data-scroll-target="#struktur-der-implizierten-kovarianzmatrix"><span class="header-section-number">3.5</span> Struktur der implizierten Kovarianzmatrix</a></li>
+  <li><a href="#bewertung-der-modellpassung-fit-indices" id="toc-bewertung-der-modellpassung-fit-indices" class="nav-link" data-scroll-target="#bewertung-der-modellpassung-fit-indices"><span class="header-section-number">3.6</span> Bewertung der Modellpassung: Fit-Indices</a>
+  <ul class="collapse">
+  <li><a href="#der-chi2-test" id="toc-der-chi2-test" class="nav-link" data-scroll-target="#der-chi2-test"><span class="header-section-number">3.6.1</span> Der <span class="math inline">\(\chi^2\)</span>-Test</a></li>
+  <li><a href="#visualisierung-der-konzepte-inkrementeller-und-absoluter-fit-indices" id="toc-visualisierung-der-konzepte-inkrementeller-und-absoluter-fit-indices" class="nav-link" data-scroll-target="#visualisierung-der-konzepte-inkrementeller-und-absoluter-fit-indices"><span class="header-section-number">3.6.2</span> Visualisierung der Konzepte inkrementeller und absoluter Fit-Indices</a></li>
+  <li><a href="#fit-index-benchmarks" id="toc-fit-index-benchmarks" class="nav-link" data-scroll-target="#fit-index-benchmarks"><span class="header-section-number">3.6.3</span> Fit-Index Benchmarks</a></li>
+  </ul></li>
   </ul></li>
   </ul>
 </nav>
@@ -204,7 +256,7 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Latente Variablen und Messmodelle</h1>
+<h1 class="title">Messmodelle und Konfirmatorische Faktorenanalyse</h1>
 </div>
 
 
@@ -234,32 +286,85 @@ div.csl-indent {
 </header>
 
 
-<p>Wie zuvor angedeutet, ist ein Kernmerkmal von SEMs die Möglichkeit latente Variablen zu modellieren. Damit erlauben SEMs die getrennte Modellierung von Messfehlern und Konstruktzusammenhängen, bzw. erlauben den Versciht der Annahme von Messfehlerfreieheit, wie sind in der klassischen Rgeressionsanalyse, ANOVA oder t-Tests üblich sind.</p>
-<section id="latente-und-manifeste-variablen" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Latente und manifeste Variablen</h1>
-<p>In einführenden Lehrbüchern liest man typischerweise, dass manifeste Variablen direkt beobachtbare Größen sind, während latente Variablen nicht direkt beobachtbar Größen seien. Während diese Unterscheidung in der Praxis oft so hingenommen wird, ist sie bei genauerer Betrachtung schiwerig: Ist das Alter einer Person direkt beobachtbar? Oder die Körpergröße? Die Temperatur eines Raumes?</p>
-<section id="kriterien-für-manifeste-variablen" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="kriterien-für-manifeste-variablen"><span class="header-section-number">1.1</span> Kriterien für manifeste Variablen</h2>
-<p>In zwei wirklich lesenswerten Publikationen hat Danny Borsboom <span class="citation" data-cites="borsboom2003 borsboom2008">(<a href="#ref-borsboom2008" role="doc-biblioref">Borsboom, 2008</a>; <a href="#ref-borsboom2003" role="doc-biblioref">Borsboom, Mellenbergh, &amp; van Heerden, 2003</a>)</span> den State of the Art zur Frage der Unterscheidung von latenten und manifesten Variablen sehr lesenwert zusammengefasst. Er schlägt vor diese Unterscheidung als <em>epistemisches</em> (nicht <em>ontologisches</em>) Problem zu betrachten und schlägt drei Kriterien vor, die eine manifeste Variable erfüllen muss:</p>
-<blockquote class="blockquote">
-<p>“Stattdessen postuliert Borsboom (2008) drei notwendige Bedingungen für die Beziehung von Daten- und Variablenstruktur, damit eine Variable als ‚beobachtet‘ gilt: Sie muss erstens deterministisch, zweitens kausal isoliert und drittens von äquivalenter Kardinalität sein. Die ersten beiden Bedingungen implizieren in Kombination, dass die Variablenausprägung durch die Daten und nur durch die Daten determiniert ist, also nicht etwa soziale Erwünschtheit zusätzliche Varianz beiträgt. Die dritte Voraussetzung meint, dass es gleich viele Datenmuster wie Variablenmuster geben muss. Dies ist etwa bei Kompetenzmessungen auf der Basis von Klassischer Testtheorie oder Item-Response-Theorie verletzt: Während die Daten (Antworten der Testaufgaben) nur endlich viele Muster aufweisen, kann bereits eine Variablenausprägung (z. B. Fähigkeitsparameter θ) überabzählbar viele Werte annehmen.” <span class="citation" data-cites="merk2023a">(<a href="#ref-merk2023a" role="doc-biblioref">Merk &amp; Schmidt, 2023, S. 145</a>)</span></p>
-</blockquote>
-<p>Dieser Definiotion nach sind wohl die allermeisten sozialwissenschaftlichen Variablen latente Variablen, da sie nicht deterministisch, kausal isoliert und von äquivalenter Kardinalität sind. Damit lohnt es sich genauer auf die Beziehung der Daten und der latwenten variablen zu schauen, was uns im nächsten Abschnitt zu der Unterscheidung von formativen und reflektiven Messmodellen führt.</p>
+<p>In diesem Abschnitt beschäftigen wir uns damit, anhand von gemessenen Variablen (Indikatoren) latente Konstrukte zu bilden (Messmodellierung), bzw. theoretische Annahmen über das Verhältnis von latenten Variablen und Indikatoren zu prüfen (konfirmatorische Faktorenanalyse).</p>
+<section id="messmodelle-und-klassische-testtheorie" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Messmodelle und Klassische Testtheorie</h1>
+<p>Unter »Klassischer Testtheorie« fasst man eine Familie von Messmodellen, die in den historischen Ursprüngen der Psychometrie wurzeln <span class="citation" data-cites="spearman1904a spearman1904b">(<a href="#ref-spearman1904a" role="doc-biblioref">Spearman, 1904a</a>, <a href="#ref-spearman1904b" role="doc-biblioref">1904b</a>)</span>. Ihnen gemeinsam ist die Annahme, dass sich Messwerte in eine wahre Wertkomponente und eine Fehlerkomponente zerlegen lassen:</p>
+<p><span id="eq-ctt"><span class="math display">\[
+\underbrace{Y_i}_{\text{Messwert}} = \underbrace{\tau_i}_{\text{True Score}} + \underbrace{\epsilon_i}_{\text{Messfehler}}
+\tag{1}\]</span></span></p>
+<p>Daraus lässt sich dass auch eine formale Definition der Reliabilität eines Messinstruments definieren und zwar als das Verhältnis der Varianz des wahren Werts zur Varianz des Messwerts:</p>
+<p><span id="eq-rel"><span class="math display">\[
+\text{Reliabilität} = \frac{\text{Var}(\tau)}{\text{Var}(Y)}
+\tag{2}\]</span></span></p>
+<p>Aus <a href="#eq-ctt" class="quarto-xref">Gleichung&nbsp;1</a> folgt schon direkt,</p>
+<ul>
+<li>dass die Reliabilität eines Messinstruments zwischen 0 und 1 liegen muss,</li>
+<li>in homogenen Stichproben die Reliabilität unterschätzt wird und</li>
+<li>die Reliabilität unabhängig von der Ausprägung des wahren Werts konzeptualisiert ist.</li>
+</ul>
 </section>
-<section id="reflektive-und-formative-messmodelle" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="reflektive-und-formative-messmodelle"><span class="header-section-number">1.2</span> Reflektive und formative Messmodelle</h2>
-<p>Wenn aus einer Geburtsurkunde auf das Alter einer Person geschlossen wird oder aus den Kreuzen eines Multiple-Choice-Testheftes auf die Mathematikkompetenz einer Person wird anhand von Daten bzgl. der Welt geschlussfolgert. Ein zunächst sehr akademisch wirkender, aber dennoch praktisch relevanter Punkt dabei ist die Annahme ob die Daten die latente Variable »reflektieren« oder »formen«, also ob die latente Variable die Daten beeinflusst oder umgekehrt. In einem reflektiven Messmodell wird angenommen, dass die latente Variable die Daten verursacht, während in einem formativen Messmodell angenommen wird, dass die Daten die latente Variable verursachen <span class="citation" data-cites="coltman2008">(<a href="#ref-coltman2008" role="doc-biblioref">Coltman, Devinney, Midgley, &amp; Venaik, 2008</a>)</span>. Als ein typisches Beispiel kann die Beziehung zwischen dem Persönlichkeitsmerkmal Extraversion und dem Item “Ich habe oft Streit mit anderen” bzw. dem Sozioökonomischen Status und dem Einkommen herangezogen werden.</p>
-<div id="fig-reflective_formative" class="quarto-float quarto-figure quarto-figure-center anchored">
+<section id="die-grundidee-konfirmatorischer-faktorenanalysen" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Die Grundidee konfirmatorischer Faktorenanalysen</h1>
+<p>Die konfirmatorische Faktorenanalyse (CFA) ist ein klassiches Beispiel für die deduktive Vorgehensweise explanativer Sozialwissenschaftlicher Methodologie: Sie postuliert zunächst ein theoretisches Modell über die Beziehung zwischen latenten Variablen und deren Indikatoren - z.B. Intelligenz ist eine allgemeine generische Disposition zur Lösung numerischer, verbaler und anderer abstrakter Probleme [Explanans; <span class="citation" data-cites="hempel1948">Hempel &amp; Oppenheim (<a href="#ref-hempel1948" role="doc-biblioref">1948</a>)</span>]. Aus dieser allgemeingültigen Gesetzesaussage wird dann ein konkretes empirisches Beispiel abgeleitet (deduziert), das dann mit Daten überprüft werden kann. In diesem Fall könnte die deduzierte Hypothese lauten: Es gibt eine latente Variable »Intelligenz«, die sich in den Indikatoren »numerische Intelligenz«, »verbale Intelligenz« und »räumliche Intelligenz« manifestiert.</p>
+<div id="fig-cfa_models" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-reflective_formative-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="img/messmodelle.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Abbildung&nbsp;1: Reflektives vs.&nbsp;formatives Messmodell"><img src="img/messmodelle.svg" class="img-fluid figure-img" style="width:100.0%"></a>
+<div aria-describedby="fig-cfa_models-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="img/intelligencemm.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Abbildung&nbsp;1: Pfadmodelle dreier Konkurrierender Modelle/Faktorenstrukturen zur Intelligenz"><img src="img/intelligencemm.svg" class="img-fluid figure-img" style="width:100.0%"></a>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-reflective_formative-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Abbildung&nbsp;1: Reflektives vs.&nbsp;formatives Messmodell
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-cfa_models-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Abbildung&nbsp;1: Pfadmodelle dreier Konkurrierender Modelle/Faktorenstrukturen zur Intelligenz
 </figcaption>
 </figure>
 </div>
-<p>Während im ersten Fall die latente Variable Extraversion die Antworten auf das Item beeinflusst, wird im zweiten Fall angenommen, dass der sozioökonomische Status durch das Einkommen beeinflusst wird. Die Richtung des Einflusses kann dabei theoretisch oder über Gedankenexperimente erschlossen werden - ist aber natürlich nicht immer unumstritten: Gewinnt eine Person etwa eine Sofortrente steigt ihr Sozioökonomischer Status, also beeinflusst das Einkommen den SES. Bricht man andereseits mit einer sehr verträglichen Person jeden tag Streit vom Zaun, kreuzt diese Person wahrscheinlich auch häufiger das Item “Ich habe oft Streit mit anderen”, aber ihre Verträglichkeit ändert sich nicht. Hier beeinflusst also die latente Variable Verträglichkeit den Indikator.</p>
+<p>Nun kann zum einen geprüft werden, inwiefern beobachtete Daten mit diesem Modell übereinstimmen, zum anderen kann aber auch die Passung zu konkurrierenden Modellen geprüft werden, z.B. einem Modell, das davon ausgeht, dass es drei voneinander unabhängige Intelligenztypen gibt, die sich nicht auf eine gemeinsame latente Variable zurückführen lassen oder einem Modell das davon ausgeht, das es zwar drei Intelligenztypen gibt, diese aber von einer übergeordneten latenten Variable beeinflusst werden. Die Quantifizierung der Passung eines Modell zu Daten kann auf sehr unterscheidliche Art und Weise erfolgen. Eine sehr naheligenede Idee ist sich zu überlegen, welche Korrelationsstruktur die Daten aufweisen sollten, wenn das Modell korrekt ist, und diese mit der tatsächlich vorgefundenen empirisch beobachteten Korrelationsstruktur zu vergleichen.</p>
+<div id="fig-corr-heatmaps" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-corr-heatmaps-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-corr-heatmaps" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-corr-heatmaps-1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-corr-heatmaps-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="Messmodelle-und-Konfirmatorische-Faktorenanalyse_files/figure-html/fig-corr-heatmaps-1.png" class="lightbox" data-gallery="fig-corr-heatmaps" title="Abbildung&nbsp;2&nbsp;(a): Heatmap A"><img src="Messmodelle-und-Konfirmatorische-Faktorenanalyse_files/figure-html/fig-corr-heatmaps-1.png" class="img-fluid figure-img" data-ref-parent="fig-corr-heatmaps" width="2100"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-corr-heatmaps-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) Heatmap A
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-corr-heatmaps" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-corr-heatmaps-2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-corr-heatmaps-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="Messmodelle-und-Konfirmatorische-Faktorenanalyse_files/figure-html/fig-corr-heatmaps-2.png" class="lightbox" data-gallery="fig-corr-heatmaps" title="Abbildung&nbsp;2&nbsp;(b): Heatmap B"><img src="Messmodelle-und-Konfirmatorische-Faktorenanalyse_files/figure-html/fig-corr-heatmaps-2.png" class="img-fluid figure-img" data-ref-parent="fig-corr-heatmaps" width="2100"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-corr-heatmaps-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) Heatmap B
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-corr-heatmaps" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-corr-heatmaps-3" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-corr-heatmaps-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="Messmodelle-und-Konfirmatorische-Faktorenanalyse_files/figure-html/fig-corr-heatmaps-3.png" class="lightbox" data-gallery="fig-corr-heatmaps" title="Abbildung&nbsp;2&nbsp;(c): Heatmap C"><img src="Messmodelle-und-Konfirmatorische-Faktorenanalyse_files/figure-html/fig-corr-heatmaps-3.png" class="img-fluid figure-img" data-ref-parent="fig-corr-heatmaps" width="2100"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-corr-heatmaps-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(c) Heatmap C
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-corr-heatmaps-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Abbildung&nbsp;2: Empirische Korrelationsmatrizen simulierter Daten für die drei postulierten Intelligenzmodelle aus <a href="#fig-cfa_models" class="quarto-xref">Abbildung&nbsp;1</a>
+</figcaption>
+</figure>
+</div>
 <div class="callout callout-style-simple callout-none no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -270,14 +375,228 @@ Abbildung&nbsp;1: Reflektives vs.&nbsp;formatives Messmodell
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Notieren Sie zwei Variablen, die zentral für ihr aktuelles Forschungsvorhaben sind.</p>
+<p>Welche der drei Heatmaps passt zu welchem Modell aus <a href="#fig-cfa_models" class="quarto-xref">Abbildung&nbsp;1</a>? Diskutieren Sie Ihre Überlegungen mit der Sitznachbarin bzw. dem Sitznachbarn.</p>
+</div>
+</div>
+</section>
+<section id="die-quantifizierung-der-modellpassung" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Die Quantifizierung der Modellpassung</h1>
+<p>Wie oben beschrieben, ist die Kernidee der konfirmatorischen Faktorenanalyse Modelle zu postulieren und diese dann anhand von Daten zu verifizieren/falisfizieren. So wären etwa die Daten aus Heatmap A (siehe <a href="#fig-corr-heatmaps" class="quarto-xref">Abbildung&nbsp;2</a>) Evidenz für das mittlere Modell in <a href="#fig-cfa_models" class="quarto-xref">Abbildung&nbsp;1</a>. Eine Herausforderung stellt nun die Quantifizierung dieser Evidenz dar: So ist zum Beispiel die folgende Heatmap sowohl mit dem mittlerem als auch dem rechten Modell aus <a href="#fig-cfa_models" class="quarto-xref">Abbildung&nbsp;1</a> einigermaßen vereinbar. Aber welches Modell passt wie viel besser?</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-heatmap-ambiguous" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-heatmap-ambiguous-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="Messmodelle-und-Konfirmatorische-Faktorenanalyse_files/figure-html/fig-heatmap-ambiguous-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Abbildung&nbsp;3: Heatmap mit einer Korrelationsstruktur, die sowohl mit dem unkorrelierten Dreifaktormodell als auch mit dem hierarchischen Modell einigermaßen vereinbar ist."><img src="Messmodelle-und-Konfirmatorische-Faktorenanalyse_files/figure-html/fig-heatmap-ambiguous-1.png" class="img-fluid figure-img" style="width:50.0%"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-heatmap-ambiguous-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Abbildung&nbsp;3: Heatmap mit einer Korrelationsstruktur, die sowohl mit dem unkorrelierten Dreifaktormodell als auch mit dem hierarchischen Modell einigermaßen vereinbar ist.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<section id="quantifizierung-der-passung-eines-messmodells" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="quantifizierung-der-passung-eines-messmodells"><span class="header-section-number">3.1</span> Quantifizierung der Passung eines Messmodells</h2>
+<p>Zur Quantifizierung der Passung eines SEM zu einem Datensatz wird sich zu nutze gemacht, dass man die implizierte Kovarianzmatrix eines Modells unter Annahme multivariater Normalverteilung vorhersagen kann. Wie dies genau funktioniert, wird im nächsten Teil für ein Messmodell - das sogenannte <span class="math inline">\(\tau\)</span>-kongenerische Messmodell - hergeleitet. Von dieser mdoellimplizierten Kovarianzmatrix <span class="math inline">\(\Sigma(\theta)\)</span> kann dann die Differenz zur empirischen Kovarianzmatrix <span class="math inline">\(S\)</span> auf verschiedene Art und Weise quantifiziert werden.</p>
+</section>
+<section id="das-tau-kongenerische-messmodell" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="das-tau-kongenerische-messmodell"><span class="header-section-number">3.2</span> Das <span class="math inline">\(\tau\)</span>-kongenerische Messmodell</h2>
+<p>Ein sehr gebräuchliches Messmodell ist das sogenannte <span class="math inline">\(\tau\)</span>-kongenerische Messmodell, das die Annahme macht, dass Items/Indikatoren unterschiedlich <strong>schwierig (<span class="math inline">\(\nu_i\)</span>)</strong>, <strong>reliabel (<span class="math inline">\(\epsilon_i\)</span>)</strong> und <strong>»trennscharf« (<span class="math inline">\(\lambda_i\)</span>)</strong> sind:</p>
+<div id="fig-taugenericmm" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-taugenericmm-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="img/taugenmm.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="Abbildung&nbsp;4: Das \tau-kongenerische Messmodell in Pfadschreibweise"><img src="img/taugenmm.svg" class="img-fluid figure-img" style="width:50.0%"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-taugenericmm-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Abbildung&nbsp;4: Das <span class="math inline">\(\tau\)</span>-kongenerische Messmodell in Pfadschreibweise
+</figcaption>
+</figure>
+</div>
+<div class="callout callout-style-simple callout-none no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">None</span>Übung <iconify-icon role="img" inline="" icon="fa7-solid:person-digging" aria-label="Icon person-digging from fa7-solid Iconify.design set." title="Icon person-digging from fa7-solid Iconify.design set."></iconify-icon>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Welcher Begriff gehört zu welchem Parameter und zu welcher Item-Eigenschaften?</p>
+<ul>
+<li>Begriff: Faktorladung, Item-Intercept, Residualvarianz</li>
+<li>Paramater: <span class="math inline">\(\nu_i\)</span>, <span class="math inline">\(\lambda_i\)</span> und <span class="math inline">\(\epsilon_i\)</span></li>
+<li>Eigenschaften: Schwierigkeit, Reliabilität und Trennschärfe</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="das-messmodell-in-matrixnotation" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="das-messmodell-in-matrixnotation"><span class="header-section-number">3.3</span> Das Messmodell in Matrixnotation</h2>
+<p>In Anlehnung an die LISREL-Notation (vgl. Kapitel »Strukturgleichungsmodellierung: Ein Überblick«) lässt sich das <span class="math inline">\(\tau\)</span>-kongenerische Messmodell für <span class="math inline">\(p\)</span> Indikatoren und eine latente Variable <span class="math inline">\(\eta\)</span> schreiben als:</p>
+<p><span id="eq-taucong"><span class="math display">\[
+\mathbf{y} = \boldsymbol{\nu} + \boldsymbol{\Lambda} \eta + \boldsymbol{\varepsilon}
+\tag{3}\]</span></span></p>
+<p>wobei:</p>
+<ul>
+<li><span class="math inline">\(\mathbf{y}\)</span> = Vektor der manifesten Indikatoren <span class="math inline">\((p \times 1)\)</span></li>
+<li><span class="math inline">\(\boldsymbol{\nu}\)</span> = Vektor der Intercepts <span class="math inline">\((p \times 1)\)</span></li>
+<li><span class="math inline">\(\boldsymbol{\Lambda}\)</span> = Vektor der Faktorladungen <span class="math inline">\((p \times 1)\)</span></li>
+<li><span class="math inline">\(\eta\)</span> = latente Variable (Skalar mit <span class="math inline">\(\text{Var}(\eta) = \psi\)</span>)</li>
+<li><span class="math inline">\(\boldsymbol{\varepsilon}\)</span> = Vektor der Messfehler <span class="math inline">\((p \times 1)\)</span></li>
+</ul>
+<p>Dabei wird angenommen, dass:</p>
 <ol type="1">
-<li>Würde Sie diese als latent oder manifest klassifizieren?</li>
-<li>Falls latent: Würden Sie diese als reflektiv oder formativ operationalisiert klassifizieren?</li>
+<li><span class="math inline">\(\text{E}(\boldsymbol{\varepsilon}) = \mathbf{0}\)</span> (Messfehler haben Erwartungswert Null)</li>
+<li><span class="math inline">\(\text{Cov}(\eta, \boldsymbol{\varepsilon}) = \mathbf{0}\)</span> (latente Variable und Messfehler sind unkorreliert)</li>
+<li><span class="math inline">\(\boldsymbol{\Theta}_\varepsilon = \text{Cov}(\boldsymbol{\varepsilon})\)</span> ist eine Diagonalmatrix (Messfehler sind untereinander unkorreliert)</li>
 </ol>
-<p>Pitchen Sie Ihre Überlegungen der Sitznachbarin bzw. dem Sitznachbarn.</p>
+</section>
+<section id="herleitung-der-implizierten-kovarianzmatrix" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="herleitung-der-implizierten-kovarianzmatrix"><span class="header-section-number">3.4</span> Herleitung der implizierten Kovarianzmatrix</h2>
+<p>Die Kovarianzmatrix der beobachteten Variablen <span class="math inline">\(\mathbf{y}\)</span> ergibt sich durch Anwendung der Kovarianzregeln auf <a href="#eq-taucong" class="quarto-xref">Gleichung&nbsp;3</a> die folgende Gleichung, da <span class="math inline">\(\boldsymbol{\nu}\)</span> eine Konstante ist und somit nicht zur Kovarianz beiträgt.</p>
+<p><span class="math display">\[
+\boldsymbol{\Sigma}(\boldsymbol{\theta}) = \text{Cov}(\mathbf{y}) = \text{Cov}(\boldsymbol{\Lambda} \eta + \boldsymbol{\varepsilon})
+\]</span></p>
+<p>Mit der Annahme der Unkorreliertheit von <span class="math inline">\(\eta\)</span> und <span class="math inline">\(\boldsymbol{\varepsilon}\)</span> folgt:</p>
+<p><span class="math display">\[
+\boldsymbol{\Sigma}(\boldsymbol{\theta}) = \boldsymbol{\Lambda} \text{Var}(\eta) \boldsymbol{\Lambda}^\top + \text{Cov}(\boldsymbol{\varepsilon})
+\]</span></p>
+<p>bzw. in kompakter Notation:</p>
+<p><span id="eq-implied-cov"><span class="math display">\[
+\boldsymbol{\Sigma}(\boldsymbol{\theta}) = \boldsymbol{\Lambda} \psi \boldsymbol{\Lambda}^\top + \boldsymbol{\Theta}_\varepsilon
+\tag{4}\]</span></span></p>
+</section>
+<section id="struktur-der-implizierten-kovarianzmatrix" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="struktur-der-implizierten-kovarianzmatrix"><span class="header-section-number">3.5</span> Struktur der implizierten Kovarianzmatrix</h2>
+<p>Die <a href="#eq-implied-cov" class="quarto-xref">Gleichung&nbsp;4</a> zeigt, dass die implizierte Kovarianzmatrix aus zwei Komponenten besteht:</p>
+<ol type="1">
+<li><strong>Gemeinsame Varianz</strong>: <span class="math inline">\(\boldsymbol{\Lambda} \psi \boldsymbol{\Lambda}^\top\)</span> – dieser Term erzeugt die Kovarianzen zwischen den Indikatoren, die durch die gemeinsame latente Variable erklärt werden</li>
+<li><strong>Spezifische Varianz</strong>: <span class="math inline">\(\boldsymbol{\Theta}_\varepsilon\)</span> – dieser Term enthält die Messfehlervarianzen auf der Diagonalen</li>
+</ol>
+<p>Für zwei Indikatoren <span class="math inline">\(y_i\)</span> und <span class="math inline">\(y_j\)</span> ergibt sich konkret:</p>
+<ul>
+<li><strong>Varianz</strong>: <span class="math inline">\(\sigma_{ii} = \lambda_i^2 \psi + \theta_{\varepsilon_i}\)</span></li>
+<li><strong>Kovarianz</strong> (für <span class="math inline">\(i \neq j\)</span>): <span class="math inline">\(\sigma_{ij} = \lambda_i \lambda_j \psi\)</span></li>
+</ul>
+<p>Dies verdeutlicht die zentrale Annahme des Modells: <strong>Alle Kovarianzen zwischen Indikatoren werden vollständig durch die gemeinsame latente Variable erklärt</strong> (lokale Unabhängigkeit).</p>
+</section>
+<section id="bewertung-der-modellpassung-fit-indices" class="level2" data-number="3.6">
+<h2 data-number="3.6" class="anchored" data-anchor-id="bewertung-der-modellpassung-fit-indices"><span class="header-section-number">3.6</span> Bewertung der Modellpassung: Fit-Indices</h2>
+<p>Die Parameter eines SEM werden meist mit Maximum-Likelihood-Verfahren geschätzt. Unter Annahme multivariater Normalverteilung der Daten lässt sich die Likelihood wie folgt formulieren:</p>
+<p><span id="eq-likelihood"><span class="math display">\[
+L(\boldsymbol{\theta}) = \prod_{i=1}^{N} \frac{1}{(2\pi)^{p/2} |\boldsymbol{\Sigma}(\boldsymbol{\theta})|^{1/2}} \exp\left(-\frac{1}{2}(\mathbf{x}_i - \boldsymbol{\mu})' \boldsymbol{\Sigma}(\boldsymbol{\theta})^{-1} (\mathbf{x}_i - \boldsymbol{\mu})\right)
+\tag{5}\]</span></span></p>
+<p>wobei <span class="math inline">\(N\)</span> die Stichprobengröße, <span class="math inline">\(p\)</span> die Anzahl der Indikatoren, <span class="math inline">\(\mathbf{x}_i\)</span> der Beobachtungsvektor der <span class="math inline">\(i\)</span>-ten Person und <span class="math inline">\(\boldsymbol{\Sigma}(\boldsymbol{\theta})\)</span> die modellimplizierte Kovarianzmatrix ist.</p>
+<p>Da man sich unter dieser doch recht Umfangreichen Formel kaum etwas vorstellen kann ist in folgendem Kasten ein Minimalbeispiel für die Maximum-Likelihood-Schätzung eines Parameters gegeben.</p>
+<div class="callout callout-style-simple callout-none no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">None</span>Minimalbeispiel: Maximum-Likelihood-Schätzung
 </div>
 </div>
+<div class="callout-body-container callout-body">
+<p>Eine Münze wird 4 mal geworfen und es werden 3 mal Kopf und 1 mal Zahl beobachtet. Der Münzwurf (Bernoulli-Verteilung) wird als datengenerierender Mechanismus angenommen, aber die Wahrscheinlichkeit für Kopf <span class="math inline">\(\theta\)</span> ist unbekannt. Die Likelihood für die beobachteten Daten (3 Kopf, 1 Zahl) lässt sich mit einem Bäumchen bestimmen und ist <span class="math inline">\(L(\theta) = 4 \cdot \theta^3 \cdot (1-\theta)^1\)</span>. Plottet man nun diese Likelihood gegen <span class="math inline">\(\theta\)</span>, so erhält man den folgenden Graphen:</p>
+<div class="cell" data-layout-align="left">
+<div class="cell-output-display">
+<div id="fig-likelihood" class="quarto-float quarto-figure quarto-figure-left anchored" width="70%" data-fig-align="left">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-likelihood-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="Messmodelle-und-Konfirmatorische-Faktorenanalyse_files/figure-html/fig-likelihood-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="Abbildung&nbsp;5: "><img src="Messmodelle-und-Konfirmatorische-Faktorenanalyse_files/figure-html/fig-likelihood-1.png" id="fig-likelihood" class="img-fluid quarto-figure quarto-figure-left anchored figure-img" style="width:70.0%"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-likelihood-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Abbildung&nbsp;5
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Dort kann man erkennen, dass wie erwartet die Likelihood für <span class="math inline">\(\theta = 0.75\)</span> maximiert wird. Die Maximum-Likelihood-Schätzung für <span class="math inline">\(\theta\)</span> ergibt also 0.75.</p>
+<p>Ein weiteres interaktives Beispiel für die Maximum-Likelihood-Schätzung von Parametern einer Normalverteilung findet sich z.B. auf der Seite vin <a href="https://rpsychologist.com/likelihood/">Kristoffer Magnusson</a>.</p>
+</div>
+</div>
+<p>Zur Schätzung der Modellparameter und zur Bewertung der Modellpassung wird typischerweise nicht die Likelihood maximiert, sondern die folgende <strong>Maximum-Likelihood-Schätzung (ML)</strong>, bei der die folgende Diskrepanzfunktion <span class="math inline">\(F\)</span> minimiert wird:</p>
+<p><span id="eq-ml-discrepancy"><span class="math display">\[
+F_{\text{ML}} = \ln|\boldsymbol{\Sigma}(\boldsymbol{\theta})| - \ln|\mathbf{S}| + \text{tr}(\mathbf{S}\boldsymbol{\Sigma}(\boldsymbol{\theta})^{-1}) - p
+\tag{6}\]</span></span></p>
+<p>wobei <span class="math inline">\(p\)</span> die Anzahl der beobachteten Variablen bezeichnet. Bei perfekter Passung (<span class="math inline">\(\boldsymbol{\Sigma}(\boldsymbol{\theta}) = \mathbf{S}\)</span>) wird <span class="math inline">\(F_{\text{ML}} = 0\)</span>.</p>
+<section id="der-chi2-test" class="level3" data-number="3.6.1">
+<h3 data-number="3.6.1" class="anchored" data-anchor-id="der-chi2-test"><span class="header-section-number">3.6.1</span> Der <span class="math inline">\(\chi^2\)</span>-Test</h3>
+<p>Aufgrund der Tatsache, dass die Größe</p>
+<p><span id="eq-chi2"><span class="math display">\[
+\chi^2 = (N - 1) \cdot F_{\text{ML}}
+\tag{7}\]</span></span></p>
+<p><span class="math inline">\(\chi^2\)</span>-verteilt mit <span class="math inline">\(df = \frac{p(p+1)}{2} - q\)</span> Freiheitsgraden, wobei <span class="math inline">\(q\)</span> die Anzahl der geschätzten Parameter ist, lässt sich die Punkt-Nullhypothese <span class="math inline">\(H_0: \boldsymbol{\Sigma} = \boldsymbol{\Sigma}(\boldsymbol{\theta})\)</span> testen. Ein signifikanter <span class="math inline">\(\chi^2\)</span>-Test (<span class="math inline">\(p &lt; .05\)</span>) spricht gegen die <strong>perfekte</strong> Passung des Modells die Daten. Ein <span class="math inline">\(p &gt; .05\)</span> kann entweder durch perfekte Passung oder zu geringe statistische Power (zu kleine Stichprobe) verursacht werden.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warnung</span>Limitationen des <span class="math inline">\(\chi^2\)</span>-Tests
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Damit hat der <span class="math inline">\(\chi^2\)</span>-Tests das typische Problem von frequentistischen Punkt-Nullhypothesen-Signifikanztests: Er kann keine Evidenz für die Nullhypothese liefern. Das ist hier besonders fatal, da die Nullhypothese die Wunschhypothese ist.</p>
+</div>
+</div>
+<section id="absolute-fit-indices" class="level4">
+<h4 class="anchored" data-anchor-id="absolute-fit-indices">Absolute Fit-Indices</h4>
+<p>Absolute Fit-Indices bewerten die Diskrepanz zwischen <span class="math inline">\(\boldsymbol{\Sigma}(\boldsymbol{\theta})\)</span> und <span class="math inline">\(\mathbf{S}\)</span> direkt:</p>
+<p><strong>SRMR (Standardized Root Mean Square Residual):</strong></p>
+<p><span id="eq-srmr"><span class="math display">\[
+\text{SRMR} = \sqrt{\frac{2 \sum_{i \leq j} \left(\frac{s_{ij} - \hat{\sigma}_{ij}}{\sqrt{s_{ii} s_{jj}}}\right)^2}{p(p+1)}}
+\tag{8}\]</span></span></p>
+<p>Der SRMR ist der durchschnittliche standardisierte Residualwert.</p>
+<p><strong>RMSEA (Root Mean Square Error of Approximation):</strong></p>
+<p><span id="eq-rmsea"><span class="math display">\[
+\text{RMSEA} = \sqrt{\frac{\chi^2 - df}{df(N-1)}}
+\tag{9}\]</span></span></p>
+<p>Der RMSEA quantifiziert den approximativen Fehler pro Freiheitsgrad und korrigiert damit für Modellkomplexität.</p>
+</section>
+<section id="inkrementelle-fit-indices" class="level4">
+<h4 class="anchored" data-anchor-id="inkrementelle-fit-indices">Inkrementelle Fit-Indices</h4>
+<p>Inkrementelle (oder komparative) Fit-Indices vergleichen das spezifizierte Modell mit einem <strong>Baseline-Modell</strong> (typischerweise das Unabhängigkeitsmodell, das keine Kovarianzen zwischen Indikatoren annimmt):</p>
+<p><strong>CFI (Comparative Fit Index):</strong></p>
+<p><span id="eq-cfi"><span class="math display">\[
+\text{CFI} = 1 - \frac{\max(\chi^2_{\text{Modell}} - df_{\text{Modell}}, 0)}{\max(\chi^2_{\text{Baseline}} - df_{\text{Baseline}}, 0)}
+\tag{10}\]</span></span></p>
+<p><strong>TLI (Tucker-Lewis Index):</strong></p>
+<p><span id="eq-tli"><span class="math display">\[
+\text{TLI} = \frac{\frac{\chi^2_{\text{Baseline}}}{df_{\text{Baseline}}} - \frac{\chi^2_{\text{Modell}}}{df_{\text{Modell}}}}{\frac{\chi^2_{\text{Baseline}}}{df_{\text{Baseline}}} - 1}
+\tag{11}\]</span></span></p>
+</section>
+</section>
+<section id="visualisierung-der-konzepte-inkrementeller-und-absoluter-fit-indices" class="level3" data-number="3.6.2">
+<h3 data-number="3.6.2" class="anchored" data-anchor-id="visualisierung-der-konzepte-inkrementeller-und-absoluter-fit-indices"><span class="header-section-number">3.6.2</span> Visualisierung der Konzepte inkrementeller und absoluter Fit-Indices</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-fit-indices-visual" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-fit-indices-visual-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="Messmodelle-und-Konfirmatorische-Faktorenanalyse_files/figure-html/fig-fit-indices-visual-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8" title="Abbildung&nbsp;6: Visualisierung der Fit-Index-Typen: Inkrementelle Indices zeigen den Fortschritt vom Null-Modell zum perfekten Modell, absolute Indices zeigen die verbleibende Diskrepanz."><img src="Messmodelle-und-Konfirmatorische-Faktorenanalyse_files/figure-html/fig-fit-indices-visual-1.png" class="img-fluid figure-img" style="width:80.0%"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-fit-indices-visual-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Abbildung&nbsp;6: Visualisierung der Fit-Index-Typen: Inkrementelle Indices zeigen den Fortschritt vom Null-Modell zum perfekten Modell, absolute Indices zeigen die verbleibende Diskrepanz.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="fit-index-benchmarks" class="level3" data-number="3.6.3">
+<h3 data-number="3.6.3" class="anchored" data-anchor-id="fit-index-benchmarks"><span class="header-section-number">3.6.3</span> Fit-Index Benchmarks</h3>
+<p>Wir haben nun gesehen, dass Fit-Indices die Modellpassung quantifizieren und diese ein theoretisches Maximum und Minimum haben. Aber ab welchem Grenzwert kann ein Modell nun als verifiziert oder falisfiziert gelten? In der Praxis sehnt man sich nach klaren Benchmarks, aber in der Realität halten diese (wie bei p-Werten, Bayes Faktoren, Effektstärken) meist nicht, was man sich von ihnen verspricht, da sie kontextsensitiv <span class="citation" data-cites="mcneish2021">(<a href="#ref-mcneish2021" role="doc-biblioref">McNeish &amp; Wolf, 2021</a>)</span> sind: So wie ein Cohen’s <span class="math inline">\(d = .2\)</span> je nach Kontext auch ein großer Effekt sein kann, kann ein <span class="math inline">\(CFI = .95\)</span> eine Misspezifikation oder ein ganz guter Fit darstellen. Stehen keine Simulationen oder kontextspezifischen Cut-Off-Werte zur Verfügung, werden zumeist die folgenden Benchmarks empfohlen <span class="citation" data-cites="marsh2004 hu1999">(<a href="#ref-hu1999" role="doc-biblioref">Hu &amp; Bentler, 1999</a>; <a href="#ref-marsh2004" role="doc-biblioref">Marsh, Hau, &amp; Wen, 2004</a>)</span></p>
+<ul>
+<li><strong>CFI/TLI</strong>: <span class="math inline">\(&gt; 0.95\)</span> für gute Passung, <span class="math inline">\(&gt; 0.90\)</span> für akzeptable Passung</li>
+<li><strong>RMSEA</strong>: <span class="math inline">\(&lt; 0.05\)</span> für gute Passung, <span class="math inline">\(&lt; 0.08\)</span> für akzeptable Passung</li>
+<li><strong>SRMR</strong>: <span class="math inline">\(&lt; 0.08\)</span> für gute Passung, <span class="math inline">\(&lt; 0.10\)</span> für akzeptable Passung</li>
+</ul>
+<p>XX(E+) 1. pays attention in class. <code>g4ptattn</code> (E+) 2. completes homework on time. <code>g4pthwrk</code> (E+) 3. works well with other children. <code>g4ptothr</code> XX(E-) 4. loses, forgets, or misplaces materials. <code>g4ptmtrl</code> XX(E-) 5. comes late to class. <code>g4ptlate</code> XX(E+) 9. completes assigned seat work. <code>g4ptwork</code> XX(E+) 13. is persistent when confronted with difficult problems. <code>g4ptpers</code> (E-) 14. doesn’t seem to know what is going on in class. <code>g4ptknow</code> (E+) 17. approaches new assignments with sincere effort. <code>g4ptefrt</code> (E-) 21. doesn’t take independent initiative, must be helped to get started and kept going on work. <code>g4ptintv</code> (E-) 22. prefers to do easy problems rather than hard ones. <code>g4pteasy</code> (E+) 24. tries to finish assignments even when they are difficult. <code>g4ptfnsh</code> (E-) 27. gets discouraged and stops trying when encounters an obstacle in schoolwork, is easily frustrated. <code>g4ptdsrg</code> (N+) 7. acts restless, is often unable to sit still. <code>g4ptrstl</code> XX(N+) 11. needs to be reprimanded. <code>g4ptrepr</code> XX(N+) 12. annoys or interferes with peers’ work. <code>g4ptanoy</code> (N+) 20. talks with classmates too much. <code>g4ptalks</code> (I+) 6. attempts to do his/her work thoroughly and well, rather than just trying to get by. <code>g4ptries</code> XX(I+) 8. participates actively in discussions. <code>g4ptdisc</code> XX(I+) 15. does more than just the assigned work. <code>g4ptextr</code> (I-) 16. is withdrawn, uncommunicative. g4ptwthd (I+) 19. asks questions to get more information. <code>g4ptasks</code> (I+) 25. raises his/her hand to answer a question or volunteer information. <code>g4ptrais</code> (I+) 26. goes to dictionary, encyclopedia, or other reference on his/her own to seek information. <code>g4ptseek</code> XX(I+) 28. engages teacher in conversation about subject matter before or after school, or outside of class. <code>g4ptdiss</code> X(V-) 18. is critical of peers who do well in school. <code>g4ptcrit</code> X(V+) 10. thinks that school is important. <code>g4ptimpt</code> XX(V-) 23. criticizes the importance of the subject matter. <code>g4ptcrts</code> (??) 29. attends other school activities such as athletic contests, carnivals, and fundraising events. <code>g4ptextc</code></p>
 
 
 <script type="ojs-module-contents">
@@ -297,19 +616,26 @@ W10=
 
 </section>
 </section>
+</section>
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">Literatur</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
-<div id="ref-borsboom2008" class="csl-entry" role="listitem">
-Borsboom, D. (2008). <a href="https://doi.org/10.1080/15366360802035497">Latent variable theory</a>. <em>Measurement: Interdisciplinary Research &amp; Perspective</em>, <em>6</em>(1-2), 25–53.
+<div id="ref-hempel1948" class="csl-entry" role="listitem">
+Hempel, C. G., &amp; Oppenheim, P. (1948). <a href="https://doi.org/10.1086/286983">Studies in the logic of explanation</a>. <em>Philosophy of Science</em>, <em>15</em>(2), 135–175.
 </div>
-<div id="ref-borsboom2003" class="csl-entry" role="listitem">
-Borsboom, D., Mellenbergh, G. J., &amp; van Heerden, J. (2003). <a href="https://doi.org/10.1037/0033-295X.110.2.203">The theoretical status of latent variables</a>. <em>Psychological Review</em>, <em>110</em>(2), 203–219.
+<div id="ref-hu1999" class="csl-entry" role="listitem">
+Hu, L., &amp; Bentler, P. M. (1999). <a href="https://doi.org/10.1080/10705519909540118">Cutoff criteria for fit indexes in covariance structure analysis: <span>Conventional</span> criteria versus new alternatives</a>. <em>Structural Equation Modeling: A Multidisciplinary Journal</em>, <em>6</em>(1), 1–55.
 </div>
-<div id="ref-coltman2008" class="csl-entry" role="listitem">
-Coltman, T., Devinney, T. M., Midgley, D. F., &amp; Venaik, S. (2008). <a href="https://doi.org/10.1016/j.jbusres.2008.01.013">Formative versus reflective measurement models: <span>Two</span> applications of formative measurement</a>. <em>Journal of Business Research</em>, <em>61</em>(12), 1250–1262.
+<div id="ref-marsh2004" class="csl-entry" role="listitem">
+Marsh, H. W., Hau, K.-T., &amp; Wen, Z. (2004). <a href="https://doi.org/10.1207/s15328007sem1103_2">In search of golden rules: <span>Comment</span> on hypothesis-testing approaches to setting cutoff values for fit indexes and dangers in overgeneralizing <span>Hu</span> and <span>Bentler</span>’s (1999) findings.</a> <em>Structural Equation Modeling: A Multidisciplinary Journal</em>, <em>11</em>(3), 320–341.
 </div>
-<div id="ref-merk2023a" class="csl-entry" role="listitem">
-Merk, S., &amp; Schmidt, K. (2023). <a href="https://doi.org/10.31244/9783830998068"><span>Grundlegende Fragen an eine quantitativ-empirische Erfassung von Meta-Reflexivität</span></a>. In C. Cramer (Hrsg.), <em><span>Meta-Reflexivität und Professionalität von Lehrpersonen. Theorieentwicklung und Forschungsperspektiven</span></em> (S. 143–154). Waxmann.
+<div id="ref-mcneish2021" class="csl-entry" role="listitem">
+McNeish, D., &amp; Wolf, M. G. (2021). <a href="https://doi.org/10.1037/met0000425">Dynamic fit index cutoffs for confirmatory factor analysis models</a>. <em>Psychological Methods</em>.
+</div>
+<div id="ref-spearman1904a" class="csl-entry" role="listitem">
+Spearman, C. S. (1904a). <span>„<span>General</span> intelligence“</span> objectively determined and measured. <em>American Journal of Psychology</em>, <em>15</em>, 201–293.
+</div>
+<div id="ref-spearman1904b" class="csl-entry" role="listitem">
+Spearman, C. S. (1904b). The proof and measurement of association. <em>American Journal of Psychology</em>, <em>15</em>, 72–101.
 </div>
 </div></section></div></main> <!-- /main -->
 <script>
