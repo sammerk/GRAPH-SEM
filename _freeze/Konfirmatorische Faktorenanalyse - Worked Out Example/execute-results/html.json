@@ -1,0 +1,15 @@
+{
+  "hash": "4a50346b158b27bb54073df70be79cb9",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Konfirmatorische Faktorenanalyse - Worked Out Example\"\n---\n\n# Datengrundlage\nWir verwenden in diesem Beispiel Daten des Tenesssse Student Teacher Achievement Ratio (STAR) Projekts, das in den 1980er Jahren durchgeführt wurde. In diesem Projekt wurden Schüler:innen über mehrere Jahre hinweg begleitet, um die Auswirkungen von Klassengröße auf die akademische Leistung zu untersuchen. Die Daten enthalten Informationen über verschiedene Aspekte der Schüler*innen, wie z.B. ihre akademischen Leistungen, Verhaltensweisen und sozioökonomischen Hintergrund.\n\nFür die konfirmatorische Faktorenanalyse verwenden wir die Items des *STUDENT PARTICIPATION QUESTIONNAIRE* (STPQ), der von Lehrer:innen ausgefüllt wurde, um die Beteiligung der Schüler:innen am Unterricht zu bewerten. \n\nWir arbeiten heute mit 10 Items, die den Skalen **E = Engagement**,  **I = Initiative** und **N = Nonparticipatory Behavior** zugeordnet werden können.\n\n| Skala | Wortlaut | Itemname |\n|:------|:---------|:---------|\n| E+ | pays attention in class | `g4ptattn` |\n| E- | loses, forgets, or misplaces materials | `g4ptmtrl` |\n| E- | comes late to class | `g4ptlate` |\n| E+ | completes assigned seat work | `g4ptwork` |\n| E+ | is persistent when confronted with difficult problems | `g4ptpers` |\n| N+ | needs to be reprimanded | `g4ptrepr` |\n| N+ | annoys or interferes with peers' work | `g4ptanoy` |\n| I+ | participates actively in discussions | `g4ptdisc` |\n| I+ | does more than just the assigned work | `g4ptextr` |\n| I+ | engages teacher in conversation about subject matter before or after school, or outside of class | `g4ptdiss` |\n\n: {tbl-colwidths=\"[5,75,20]\"}\n\nAlle Items wurden auf einer 5-stufigen Skala von *1 = nie* bis *5 = immer* bewertet.\n\n::: {.callout-warning}\nDer Datensatz enthält eine genestete Struktur, da Schüler:innen in Klassen und Schulen organisiert sind. Um nicht gleich mit Multi-Level-Konfirmatorischen-Faktorenanalysen starten zu müssen, habe jeweils eine Schülerin bzw. einen Schüler zufällig aus jeder Klasse ausgewählt. In der Praxis sollte man dies natürlich nicht tun\n:::\n\n# Datenimport\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(haven)\ndata_star <- read_sav(\n  \"https://raw.githubusercontent.com/sammerk/GRAPH-SEM/master/data_sem_workshop.sav\"\n)\n```\n:::\n\n\n# Messmodellvergleiche\nWir können nun verschiedene Messmodelle spezifizieren und vergleichen, um zu sehen, welches am besten zu den Daten passt. Dazu fange wir am besten mit der ",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

@@ -5,9 +5,9 @@ title: "Konfirmatorische Faktorenanalyse - Worked Out Example"
 # Datengrundlage
 Wir verwenden in diesem Beispiel Daten des Tenesssse Student Teacher Achievement Ratio (STAR) Projekts, das in den 1980er Jahren durchgeführt wurde. In diesem Projekt wurden Schüler:innen über mehrere Jahre hinweg begleitet, um die Auswirkungen von Klassengröße auf die akademische Leistung zu untersuchen. Die Daten enthalten Informationen über verschiedene Aspekte der Schüler*innen, wie z.B. ihre akademischen Leistungen, Verhaltensweisen und sozioökonomischen Hintergrund.
 
-Für die konfirmatorische Faktorenanalyse verwenden wir die Items des **STUDENT PARTICIPATION QUESTIONNAIRE** (STPQ), der von Lehrer:innen ausgefüllt wurde, um die Beteiligung der Schüler:innen am Unterricht zu bewerten. 
+Für die konfirmatorische Faktorenanalyse verwenden wir die Items des *STUDENT PARTICIPATION QUESTIONNAIRE* (STPQ), der von Lehrer:innen ausgefüllt wurde, um die Beteiligung der Schüler:innen am Unterricht zu bewerten. 
 
-Wir arbeiten heute mit 10 Items, die den Skalen *Engagement*,  *Initiative* und *N = Nonparticipatory Behavior* zugeordnet werden können.
+Wir arbeiten heute mit 10 Items, die den Skalen **E = Engagement**,  **I = Initiative** und **N = Nonparticipatory Behavior** zugeordnet werden können.
 
 | Skala | Wortlaut | Itemname |
 |:------|:---------|:---------|
@@ -24,5 +24,37 @@ Wir arbeiten heute mit 10 Items, die den Skalen *Engagement*,  *Initiative* und 
 
 : {tbl-colwidths="[5,75,20]"}
 
-Alle Items wurden auf einer 5-stufigen Skala von 1 = nie bis 5 = immer bewertet.
+Alle Items wurden auf einer 5-stufigen Skala von *1 = nie* bis *5 = immer* bewertet.
 
+::: {.callout-warning}
+Der Datensatz enthält eine genestete Struktur, da Schüler:innen in Klassen und Schulen organisiert sind. Um nicht gleich mit Multi-Level-Konfirmatorischen-Faktorenanalysen starten zu müssen, habe jeweils eine Schülerin bzw. einen Schüler zufällig aus jeder Klasse ausgewählt. In der Praxis sollte man dies natürlich nicht tun
+:::
+
+# Datenimport
+```{r}
+library(haven)
+data_star <- read_sav(
+  "https://raw.githubusercontent.com/sammerk/GRAPH-SEM/master/data_sem_workshop.sav"
+)
+```
+
+# Messmodellvergleiche
+Wir können nun verschiedene Messmodelle spezifizieren und vergleichen, um zu sehen, welches am besten zu den Daten passt. Dazu fange wir am besten mit der Engagement-Skala an und spezifizieren zunächst ein $\tau$-generisches Messmodell.
+Dazu verwenden wir das `{lavaan}` Paket und spezifizieren das Modell in der sogenannten lavaan-Syntax, die sich an die natürlichsprachliche Beschreibung von Modellen anlehnt und [hier](https://lavaan.ugent.be/tutorial/syntax1.html) sowie [hier](https://lavaan.ugent.be/tutorial/syntax2.html) übersichtlich dargestellt wird.
+
+
+```{r}
+library(lavaan)
+model_tau <- '
+E =~ g4ptattn + g4ptmtrl + g4ptlate + g4ptwork + g4ptpers
+'
+```
+
+In dieser Syntax bedeutet `E =~ g4ptattn + g4ptmtrl + g4ptlate + g4ptwork + g4ptpers`, dass die latente Variable `E` durch die fünf Items `g4ptattn`, `g4ptmtrl`, `g4ptlate`, `g4ptwork` und `g4ptpers` gemessen wird. Das Symbol `=~` wird verwendet, um anzugeben, dass es sich um eine Messmodell-Spezifikation handelt. Die Items auf der rechten Seite des `=~`-Operators sind die manifesten Indikatoren, die die latente Variable `E` messen. 
+Ähnlich wie bei der spezifikation von Regressionen in R bedeutet `~ + g4ptmtrl`, dass eine multiplikative Konstante (Ladung, Regressionsgewicht) frei für `g4ptmtrl` geschätzt wird.
+Das Objekt `model_tau` enthält aber nur die Spezifikation unseres $\tau$-generischen Modells, dessen Parameter wir nun anhand der Dtaen schätzen:
+
+```{r}
+fit_tau <- cfa(model_tau, data = data_star)
+summary(fit_tau, fit.measures = TRUE, standardized = TRUE)
+```
