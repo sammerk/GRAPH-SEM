@@ -11,7 +11,10 @@ toc: true
 {{< include _extensions/r-wasm/live/_knitr.qmd >}}
 
 ## Grundidee
-Die Grundidee von Latent Change Score Modellen ist es, Veränderungen als latente Variablen zu modellieren, indem deren Mittelwert und Varianz (sowie deren Kovarianz mit anderen Variablen) geschätzt wird.
+Bei der konfirmatorischen Faktorenanalyse haben wir latente Variablen als solche betrachtet, die durch manifeste Indikatoren gemessen werden. 
+In diesem Kapitel wollen wir nun die Möglichkeit betrachten, latente Variablen als solche zu modellieren, die Veränderungen über die Zeit darstellen. Diese Modelle werden als Latent Change Score Modelle (LCSM) bezeichnet [@mcardle2019].
+Die Grundidee von Latent Change Score Modellen ist es, Veränderungen als latente Variablen zu modellieren, indem deren Mittelwert und Varianz geschätzt wird.
+Ist die Veränderung dann als Latente Variable mit Mittelwert und Varianz modelliert, können auch Prädiktoren für diese Veränderung integriert werden, Kovarianzen oder Unterschiede zwischen Gruppen.
 
 ## Beispiel
 Wir können z.B. zunächst den Zuwachs der Mathematik-Klassenmittelwerte von einem Jahr zum nächsten modellieren .
