@@ -10,7 +10,7 @@ webr:
     - dplyr
     - haven
 #    - ggplot2
-toc: true
+toc: true    
 lang: de
 ---
 
@@ -184,7 +184,7 @@ exams2forms("exams/regressionsebene-interpretieren.Rmd", n = 1)
 
 ## Algebraische Notation der multiplen Regression
 
-Die algebraische Notation der einfachen linearen Regression kann durch die Aufnahme weiterer $b_j \cdot x_{ji}$ Terme leicht zur Notation der multiplen linearen Regression ausgebaut werden. Weiterhin wird jedoch nur ein Term für das Residuum benötigt, da dies den Abstand parallel zur Achse der abhängigen Variable eines Datenpunktes und der Regressionsebene darstellt.
+Die algeraische Notation der einfachen linearen Regression kann durch die Aufnahme weiterer $b_j \cdot x_{ji}$ Terme leicht zur Notation der multiplen linearen Regression ausgebaut werden. Weiterhin wird jedoch nur ein Term für das Residuum benötigt, da dies den Abstand parallel zur Achse der abhängigen Variable eines Datenpunktes und der Regressionsebene darstellt.
 
 $$
 y_i = b_0 + b_1 \cdot x_{1i} + b_2 \cdot x_{2i} + \dots +  \varepsilon_i
@@ -430,21 +430,21 @@ In folgendem Code Chunk etwa werden Daten wie im linken DAG von @fig-collider si
 
 ```{r}
 #| label: tbl-collider-effect
-set.seed(123)
-n <- 10000
+set.seed(1893)
+n <- 1000
 data_sim_collider <-
   tibble(
     TransmissiveÜberzeugungen = rnorm(n),
-    Schülerleistungen = 2*TransmissiveÜberzeugungen + rnorm(n),
-    KognitiveAktivierung = 1 *
+    Schülerleistungen = - .5*TransmissiveÜberzeugungen + rnorm(n),
+    KognitiveAktivierung = - 1 *
       TransmissiveÜberzeugungen +
-      3 * Schülerleistungen +
+      .7 * Schülerleistungen +
       rnorm(n)
   )
 ```
 
 
-Analysiert man Hypothese 1, erhält man einen unverzerrten Effekt der Transmissiven Überzeugungen auf die `Schülerleistungen`, **solange man nicht um `KognitiveAktivierung` adjustiert**. Adjustiert man jedoch um `KognitiveAktivierung`, erhält man nicht nur eine Über- oder Unterschätzung des Effekts der Transmissiven Überzeugungen auf die `Schülerleistungen`, sondern sogar eine Umkehrung des Vorzeichens des Effekts, sodass man fälschlicherweise zu dem Schluss kommen könnte, dass Transmissive Überzeugungen einen negativen Effekt auf die Schülerleistungen haben - insbesondere daadurch, dass die Infernezstatistik konklusiv (»signifikant«) ist.
+Analysiert man Hypothese 1, erhält man einen unverzerrten Effekt der Transmissiven Überzeugungen auf die `Schülerleistungen`, **solange man nicht um `KognitiveAktivierung` adjustiert**. Adjustiert man jedoch um `KognitiveAktivierung`, erhält man nicht nur eine Über- oder Unterschätzung des Effekts der Transmissiven Überzeugungen auf die `Schülerleistungen`, sondern sogar eine Umkehrung des Vorzeichens des Effekts, sodass man fälschlicherweise zu dem Schluss kommen könnte, dass Transmissive Überzeugungen einen positiven Effekt auf die Schülerleistungen haben - insbesondere dadurch, dass die Infernezstatistik konklusiv (»signifikant«) ist.
 
 
 ```{r}
@@ -454,6 +454,9 @@ sjPlot::tab_model(
   lm(
     Schülerleistungen ~ TransmissiveÜberzeugungen + KognitiveAktivierung,
     data = data_sim_collider
-  )
+  ),
+  show.ci = F,
+  p.style = "stars",
+  show.std = T
 )
 ```
