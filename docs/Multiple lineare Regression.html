@@ -248,6 +248,24 @@ window.Quarto = {
  <span class="menu-text">Latente Variablen und Messmodelle</span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Messmodelle und Konfirmatorische Faktorenanalyse.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Messmodelle und Konfirmatorische Faktorenanalyse</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Konfirmatorische Faktorenanalyse - Worked Out Example.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Konfirmatorische Faktorenanalyse - Worked Out Example</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Latent Change Score Models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Latent Change Score Models</span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -325,8 +343,8 @@ Abbildung&nbsp;1: 3D Scatterplot mit Regressionsfläche
 <h3 class="unnumbered h3short anchored" data-anchor-id="übung">Übung <iconify-icon role="img" inline="" icon="fa7-solid:person-digging" aria-label="Icon person-digging from fa7-solid Iconify.design set." title="Icon person-digging from fa7-solid Iconify.design set."></iconify-icon></h3>
 <p>Betrachten Sie die interaktive 3D-Visualisierung der multiplen Regression aus dem Abschnitt “Geometrische Repräsentation der multiplen Regression”.</p>
 <p>Welche der folgenden Aussagen ist korrekt?</p>
-<div id="webex-ac5d05c1fb294d6cd26bce1b4404d090" class="webex-checkboxgroup" data-answer="OlIZVBwETwBKUh4IaQ==">
-<label><input type="checkbox" autocomplete="off" name="ac5d05c1fb294d6cd26bce1b4404d090"><span>Die Regressionsebene zeigt die vorhergesagten Werte der abhängigen Variable für alle Kombinationen der beiden Prädiktoren.</span></label><label><input type="checkbox" autocomplete="off" name="ac5d05c1fb294d6cd26bce1b4404d090"><span>Bewegt man sich auf der Regressionsebene derart, dass <code>Anteil Free Lunch</code> gleich bleibt aber <code>Matheleistung Kl. 2</code> steigt, sinkt <code>Matheleistung Kl. 3</code></span></label><label><input type="checkbox" autocomplete="off" name="ac5d05c1fb294d6cd26bce1b4404d090"><span>Die Punkte zeigen die tatsächlich beobachteten Werte der abhängigen Variable</span></label><label><input type="checkbox" autocomplete="off" name="ac5d05c1fb294d6cd26bce1b4404d090"><span>Bewegt man sich auf der Regressionsebene derart, dass <code>Matheleistung Kl. 2</code> gleich bleibt aber <code>Anteil Free Lunch</code> steigt, sinkt <code>Matheleistung Kl. 3</code></span></label><label><input type="checkbox" autocomplete="off" name="ac5d05c1fb294d6cd26bce1b4404d090"><span>Die Residuen entsprechen den (kleinsten) Abständen der Punkte zur Regressionsebene</span></label><label><input type="checkbox" autocomplete="off" name="ac5d05c1fb294d6cd26bce1b4404d090"><span>Projiziert man alle Punkte parallel zur Achse der abhängigen Variable in eine Ebene, erkennt man, dass die beiden Prädiktoren negativ assoziert sind.</span></label>
+<div id="webex-9717e14d844e7ea4e514f6701f138d6c" class="webex-checkboxgroup" data-answer="YgYdBkkAGFQUBBhUag==">
+<label><input type="checkbox" autocomplete="off" name="9717e14d844e7ea4e514f6701f138d6c"><span>Projiziert man alle Punkte parallel zur Achse der abhängigen Variable in eine Ebene, erkennt man, dass die beiden Prädiktoren negativ assoziert sind.</span></label><label><input type="checkbox" autocomplete="off" name="9717e14d844e7ea4e514f6701f138d6c"><span>Bewegt man sich auf der Regressionsebene derart, dass <code>Matheleistung Kl. 2</code> gleich bleibt aber <code>Anteil Free Lunch</code> steigt, sinkt <code>Matheleistung Kl. 3</code></span></label><label><input type="checkbox" autocomplete="off" name="9717e14d844e7ea4e514f6701f138d6c"><span>Die Regressionsebene zeigt die vorhergesagten Werte der abhängigen Variable für alle Kombinationen der beiden Prädiktoren.</span></label><label><input type="checkbox" autocomplete="off" name="9717e14d844e7ea4e514f6701f138d6c"><span>Die Residuen entsprechen den (kleinsten) Abständen der Punkte zur Regressionsebene</span></label><label><input type="checkbox" autocomplete="off" name="9717e14d844e7ea4e514f6701f138d6c"><span>Bewegt man sich auf der Regressionsebene derart, dass <code>Anteil Free Lunch</code> gleich bleibt aber <code>Matheleistung Kl. 2</code> steigt, sinkt <code>Matheleistung Kl. 3</code></span></label><label><input type="checkbox" autocomplete="off" name="9717e14d844e7ea4e514f6701f138d6c"><span>Die Punkte zeigen die tatsächlich beobachteten Werte der abhängigen Variable</span></label>
 </div>
 </section>
 <div class="webex-solution">
@@ -336,7 +354,7 @@ Abbildung&nbsp;1: 3D Scatterplot mit Regressionsfläche
 </section>
 <section id="algebraische-notation-der-multiplen-regression" class="level2" data-number="2">
 <h2 data-number="2" class="anchored" data-anchor-id="algebraische-notation-der-multiplen-regression"><span class="header-section-number">2</span> Algebraische Notation der multiplen Regression</h2>
-<p>Die algeraische Notation der einfachen linearen Regression kann durch die Aufnahme weiterer <span class="math inline">\(b_j \cdot x_{ji}\)</span> Terme leicht zur Notation der multiplen linearen Regression ausgebaut werden. Weiterhin wird jedoch nur ein Term für das Residuum benötigt, da dies den Abstand parallel zur Achse der abhängigen Variable eines Datenpunktes und der Regressionsebene darstellt.</p>
+<p>Die algebraische Notation der einfachen linearen Regression kann durch die Aufnahme weiterer <span class="math inline">\(b_j \cdot x_{ji}\)</span> Terme leicht zur Notation der multiplen linearen Regression ausgebaut werden. Weiterhin wird jedoch nur ein Term für das Residuum benötigt, da dies den Abstand parallel zur Achse der abhängigen Variable eines Datenpunktes und der Regressionsebene darstellt.</p>
 <p><span id="eq-multipleregression"><span class="math display">\[
 y_i = b_0 + b_1 \cdot x_{1i} + b_2 \cdot x_{2i} + \dots +  \varepsilon_i
 \tag{1}\]</span></span></p>

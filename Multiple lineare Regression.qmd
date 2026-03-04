@@ -184,7 +184,7 @@ exams2forms("exams/regressionsebene-interpretieren.Rmd", n = 1)
 
 ## Algebraische Notation der multiplen Regression
 
-Die algeraische Notation der einfachen linearen Regression kann durch die Aufnahme weiterer $b_j \cdot x_{ji}$ Terme leicht zur Notation der multiplen linearen Regression ausgebaut werden. Weiterhin wird jedoch nur ein Term für das Residuum benötigt, da dies den Abstand parallel zur Achse der abhängigen Variable eines Datenpunktes und der Regressionsebene darstellt.
+Die algebraische Notation der einfachen linearen Regression kann durch die Aufnahme weiterer $b_j \cdot x_{ji}$ Terme leicht zur Notation der multiplen linearen Regression ausgebaut werden. Weiterhin wird jedoch nur ein Term für das Residuum benötigt, da dies den Abstand parallel zur Achse der abhängigen Variable eines Datenpunktes und der Regressionsebene darstellt.
 
 $$
 y_i = b_0 + b_1 \cdot x_{1i} + b_2 \cdot x_{2i} + \dots +  \varepsilon_i

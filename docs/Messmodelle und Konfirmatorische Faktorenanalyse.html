@@ -293,7 +293,7 @@ window.Quarto = {
 <p><span id="eq-ctt"><span class="math display">\[
 \underbrace{Y_i}_{\text{Messwert}} = \underbrace{\tau_i}_{\text{True Score}} + \underbrace{\epsilon_i}_{\text{Messfehler}}
 \tag{1}\]</span></span></p>
-<p>Daraus lässt sich dass auch eine formale Definition der Reliabilität eines Messinstruments definieren und zwar als das Verhältnis der Varianz des wahren Werts zur Varianz des Messwerts:</p>
+<p>Daraus lässt sich auch eine formale Definition der Reliabilität eines Messinstruments ableiten, als das Verhältnis der Varianz des wahren Werts zur Varianz des Messwerts:</p>
 <p><span id="eq-rel"><span class="math display">\[
 \text{Reliabilität} = \frac{\text{Var}(\tau)}{\text{Var}(Y)}
 \tag{2}\]</span></span></p>
@@ -317,7 +317,7 @@ Abbildung&nbsp;1: Pfadmodelle dreier Konkurrierender Modelle/Faktorenstrukturen 
 </figcaption>
 </figure>
 </div>
-<p>Nun kann zum einen geprüft werden, inwiefern beobachtete Daten mit diesem Modell übereinstimmen, zum anderen kann aber auch die Passung zu konkurrierenden Modellen geprüft werden, z.B. einem Modell, das davon ausgeht, dass es drei voneinander unabhängige Intelligenztypen gibt, die sich nicht auf eine gemeinsame latente Variable zurückführen lassen oder einem Modell das davon ausgeht, das es zwar drei Intelligenztypen gibt, diese aber von einer übergeordneten latenten Variable beeinflusst werden. Die Quantifizierung der Passung eines Modell zu Daten kann auf sehr unterscheidliche Art und Weise erfolgen. Eine sehr naheligenede Idee ist sich zu überlegen, welche Korrelationsstruktur die Daten aufweisen sollten, wenn das Modell korrekt ist, und diese mit der tatsächlich vorgefundenen empirisch beobachteten Korrelationsstruktur zu vergleichen.</p>
+<p>Nun kann zum einen geprüft werden, inwiefern beobachtete Daten mit diesem Modell übereinstimmen, zum anderen kann aber auch die Passung zu konkurrierenden Modellen geprüft werden, z.B. einem Modell, das davon ausgeht, dass es drei voneinander unabhängige Intelligenztypen gibt, die sich nicht auf eine gemeinsame latente Variable zurückführen lassen oder einem Modell, das davon ausgeht, das es zwar drei Intelligenztypen gibt, diese aber von einer übergeordneten latenten Variable beeinflusst werden. Die Quantifizierung der Passung eines Modells zu Daten kann auf sehr unterschiedliche Art und Weise erfolgen. Eine sehr naheliegende Idee ist, sich zu überlegen, welche Korrelationsstruktur die Daten aufweisen sollten, wenn das Modell korrekt ist, und diese mit der tatsächlich vorgefundenen empirisch beobachteten Korrelationsstruktur zu vergleichen.</p>
 <div id="fig-corr-heatmaps" class="quarto-layout-panel">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-corr-heatmaps-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -381,7 +381,7 @@ Abbildung&nbsp;2: Empirische Korrelationsmatrizen simulierter Daten für die dre
 </section>
 <section id="die-quantifizierung-der-modellpassung" class="level1" data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span> Die Quantifizierung der Modellpassung</h1>
-<p>Wie oben beschrieben, ist die Kernidee der konfirmatorischen Faktorenanalyse Modelle zu postulieren und diese dann anhand von Daten zu verifizieren/falisfizieren. So wären etwa die Daten aus Heatmap A (siehe <a href="#fig-corr-heatmaps" class="quarto-xref">Abbildung&nbsp;2</a>) Evidenz für das mittlere Modell in <a href="#fig-cfa_models" class="quarto-xref">Abbildung&nbsp;1</a>. Eine Herausforderung stellt nun die Quantifizierung dieser Evidenz dar: So ist zum Beispiel die folgende Heatmap sowohl mit dem mittlerem als auch dem rechten Modell aus <a href="#fig-cfa_models" class="quarto-xref">Abbildung&nbsp;1</a> einigermaßen vereinbar. Aber welches Modell passt wie viel besser?</p>
+<p>Wie oben beschrieben, ist die Kernidee der konfirmatorischen Faktorenanalyse Modelle zu postulieren und diese dann anhand von Daten zu verifizieren/falsifizieren. So wären etwa die Daten aus Heatmap A (siehe <a href="#fig-corr-heatmaps" class="quarto-xref">Abbildung&nbsp;2</a>) Evidenz für das mittlere Modell in <a href="#fig-cfa_models" class="quarto-xref">Abbildung&nbsp;1</a>. Eine Herausforderung stellt nun die Quantifizierung dieser Evidenz dar: So ist zum Beispiel die folgende Heatmap sowohl mit dem mittlerem als auch dem rechten Modell aus <a href="#fig-cfa_models" class="quarto-xref">Abbildung&nbsp;1</a> einigermaßen vereinbar. Aber welches Modell passt wie viel besser?</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-heatmap-ambiguous" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -398,7 +398,7 @@ Abbildung&nbsp;3: Heatmap mit einer Korrelationsstruktur, die sowohl mit dem unk
 </div>
 <section id="quantifizierung-der-passung-eines-messmodells" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="quantifizierung-der-passung-eines-messmodells"><span class="header-section-number">3.1</span> Quantifizierung der Passung eines Messmodells</h2>
-<p>Zur Quantifizierung der Passung eines SEM zu einem Datensatz wird sich zu nutze gemacht, dass man die implizierte Kovarianzmatrix eines Modells unter Annahme multivariater Normalverteilung vorhersagen kann. Wie dies genau funktioniert, wird im nächsten Teil für ein Messmodell - das sogenannte <span class="math inline">\(\tau\)</span>-kongenerische Messmodell - hergeleitet. Von dieser mdoellimplizierten Kovarianzmatrix <span class="math inline">\(\Sigma(\theta)\)</span> kann dann die Differenz zur empirischen Kovarianzmatrix <span class="math inline">\(S\)</span> auf verschiedene Art und Weise quantifiziert werden.</p>
+<p>Zur Quantifizierung der Passung eines SEM zu einem Datensatz wird sich zu nutze gemacht, dass man die implizierte Kovarianzmatrix eines Modells unter Annahme multivariater Normalverteilung vorhersagen kann. Wie dies genau funktioniert, wird im nächsten Teil für ein Messmodell - das sogenannte <span class="math inline">\(\tau\)</span>-kongenerische Messmodell - hergeleitet. Von dieser der modellimplizierten Kovarianzmatrix <span class="math inline">\(\Sigma(\theta)\)</span> kann dann die Differenz zur empirischen Kovarianzmatrix <span class="math inline">\(S\)</span> auf verschiedene Art und Weise quantifiziert werden.</p>
 </section>
 <section id="das-tau-kongenerische-messmodell" class="level2" data-number="3.2">
 <h2 data-number="3.2" class="anchored" data-anchor-id="das-tau-kongenerische-messmodell"><span class="header-section-number">3.2</span> Das <span class="math inline">\(\tau\)</span>-kongenerische Messmodell</h2>
@@ -489,7 +489,7 @@ Abbildung&nbsp;4: Das <span class="math inline">\(\tau\)</span>-kongenerische Me
 L(\boldsymbol{\theta}) = \prod_{i=1}^{N} \frac{1}{(2\pi)^{p/2} |\boldsymbol{\Sigma}(\boldsymbol{\theta})|^{1/2}} \exp\left(-\frac{1}{2}(\mathbf{x}_i - \boldsymbol{\mu})' \boldsymbol{\Sigma}(\boldsymbol{\theta})^{-1} (\mathbf{x}_i - \boldsymbol{\mu})\right)
 \tag{5}\]</span></span></p>
 <p>wobei <span class="math inline">\(N\)</span> die Stichprobengröße, <span class="math inline">\(p\)</span> die Anzahl der Indikatoren, <span class="math inline">\(\mathbf{x}_i\)</span> der Beobachtungsvektor der <span class="math inline">\(i\)</span>-ten Person und <span class="math inline">\(\boldsymbol{\Sigma}(\boldsymbol{\theta})\)</span> die modellimplizierte Kovarianzmatrix ist.</p>
-<p>Da man sich unter dieser doch recht Umfangreichen Formel kaum etwas vorstellen kann ist in folgendem Kasten ein Minimalbeispiel für die Maximum-Likelihood-Schätzung eines Parameters gegeben.</p>
+<p>Da man sich unter dieser doch recht umfangreichen Formel kaum etwas vorstellen kann, ist in folgendem Kasten ein Minimalbeispiel für die Maximum-Likelihood-Schätzung eines Parameters gegeben.</p>
 <div class="callout callout-style-simple callout-none no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -503,7 +503,7 @@ L(\boldsymbol{\theta}) = \prod_{i=1}^{N} \frac{1}{(2\pi)^{p/2} |\boldsymbol{\Sig
 <p>Eine Münze wird 4 mal geworfen und es werden 3 mal Kopf und 1 mal Zahl beobachtet. Der Münzwurf (Bernoulli-Verteilung) wird als datengenerierender Mechanismus angenommen, aber die Wahrscheinlichkeit für Kopf <span class="math inline">\(\theta\)</span> ist unbekannt. Die Likelihood für die beobachteten Daten (3 Kopf, 1 Zahl) lässt sich mit einem Bäumchen bestimmen und ist <span class="math inline">\(L(\theta) = 4 \cdot \theta^3 \cdot (1-\theta)^1\)</span>. Plottet man nun diese Likelihood gegen <span class="math inline">\(\theta\)</span>, so erhält man den folgenden Graphen:</p>
 <div class="cell" data-layout-align="left">
 <div class="cell-output-display">
-<div id="fig-likelihood" class="quarto-float quarto-figure quarto-figure-left anchored" width="70%" data-fig-align="left">
+<div id="fig-likelihood" class="quarto-float quarto-figure quarto-figure-left anchored" data-fig-align="left" width="70%">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-likelihood-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <a href="Messmodelle-und-Konfirmatorische-Faktorenanalyse_files/figure-html/fig-likelihood-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="Abbildung&nbsp;5: "><img src="Messmodelle-und-Konfirmatorische-Faktorenanalyse_files/figure-html/fig-likelihood-1.png" id="fig-likelihood" class="img-fluid quarto-figure quarto-figure-left anchored figure-img" style="width:70.0%"></a>

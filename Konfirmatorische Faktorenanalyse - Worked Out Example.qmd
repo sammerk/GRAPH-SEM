@@ -3,7 +3,7 @@ title: "Konfirmatorische Faktorenanalyse - Worked Out Example"
 ---
 
 # Datengrundlage
-Wir verwenden in diesem Beispiel Daten des Tenesssse Student Teacher Achievement Ratio (STAR) Projekts, das in den 1980er Jahren durchgeführt wurde. In diesem Projekt wurden Schüler:innen über mehrere Jahre hinweg begleitet, um die Auswirkungen von Klassengröße auf die akademische Leistung zu untersuchen. Die Daten enthalten Informationen über verschiedene Aspekte der Schüler*innen, wie z.B. ihre akademischen Leistungen, Verhaltensweisen und sozioökonomischen Hintergrund.
+Wir verwenden in diesem Beispiel Daten des Tennessee Student/Teacher Achievement Ratio (STAR) Projekts, das in den 1980er Jahren durchgeführt wurde. In diesem Projekt wurden Schüler:innen über mehrere Jahre hinweg begleitet, um die Auswirkungen von Klassengröße auf die akademische Leistung zu untersuchen. Die Daten enthalten Informationen über verschiedene Aspekte der Schüler*innen, wie z.B. ihre akademischen Leistungen, Verhaltensweisen und ihren sozioökonomischen Hintergrund.
 
 Für die konfirmatorische Faktorenanalyse verwenden wir die Items des *STUDENT PARTICIPATION QUESTIONNAIRE* (STPQ), der von Lehrer:innen ausgefüllt wurde, um die Beteiligung der Schüler:innen am Unterricht zu bewerten. 
 
@@ -27,7 +27,7 @@ Wir arbeiten heute mit 10 Items, die den Skalen **E = Engagement**,  **I = Initi
 Alle Items wurden auf einer 5-stufigen Skala von *1 = nie* bis *5 = immer* bewertet.
 
 ::: {.callout-warning}
-Der Datensatz enthält eine genestete Struktur, da Schüler:innen in Klassen und Schulen organisiert sind. Um nicht gleich mit Multi-Level-Konfirmatorischen-Faktorenanalysen starten zu müssen, habe jeweils eine Schülerin bzw. einen Schüler zufällig aus jeder Klasse ausgewählt. In der Praxis sollte man dies natürlich nicht tun
+Der Datensatz enthält eine genestete Struktur, da Schüler:innen in Klassen und Schulen organisiert sind. Um nicht gleich mit Multi-Level-Konfirmatorischen-Faktorenanalysen starten zu müssen, habe ich jeweils eine Schülerin bzw. einen Schüler zufällig aus jeder Klasse ausgewählt. In der Praxis sollte man dies natürlich nicht tun.
 :::
 
 # Datenimport
@@ -39,10 +39,10 @@ data_star <- read_sav(
 ```
 
 # Messmodellvergleiche
-Wir können nun verschiedene Messmodelle spezifizieren und vergleichen, um zu sehen, welches am besten zu den Daten passt. Dazu fange wir am besten mit der Engagement-Skala an und spezifizieren zunächst ein $\tau$-generisches Messmodell.
+Wir können nun verschiedene Messmodelle spezifizieren und vergleichen, um zu sehen, welches am besten zu den Daten passt. Dazu fangen wir am besten mit der Engagement-Skala an und spezifizieren zunächst ein $\tau$-generisches Messmodell.
 Dazu verwenden wir das `{lavaan}` Paket und spezifizieren das Modell in der sogenannten lavaan-Syntax, die sich an die natürlichsprachliche Beschreibung von Modellen anlehnt und [hier](https://lavaan.ugent.be/tutorial/syntax1.html) sowie [hier](https://lavaan.ugent.be/tutorial/syntax2.html) übersichtlich dargestellt wird.
 
-
+## $\tau$-generisches Messmodell
 ```{r}
 library(lavaan)
 model_tau <- '
@@ -50,11 +50,153 @@ E =~ g4ptattn + g4ptmtrl + g4ptlate + g4ptwork + g4ptpers
 '
 ```
 
-In dieser Syntax bedeutet `E =~ g4ptattn + g4ptmtrl + g4ptlate + g4ptwork + g4ptpers`, dass die latente Variable `E` durch die fünf Items `g4ptattn`, `g4ptmtrl`, `g4ptlate`, `g4ptwork` und `g4ptpers` gemessen wird. Das Symbol `=~` wird verwendet, um anzugeben, dass es sich um eine Messmodell-Spezifikation handelt. Die Items auf der rechten Seite des `=~`-Operators sind die manifesten Indikatoren, die die latente Variable `E` messen. 
-Ähnlich wie bei der spezifikation von Regressionen in R bedeutet `~ + g4ptmtrl`, dass eine multiplikative Konstante (Ladung, Regressionsgewicht) frei für `g4ptmtrl` geschätzt wird.
-Das Objekt `model_tau` enthält aber nur die Spezifikation unseres $\tau$-generischen Modells, dessen Parameter wir nun anhand der Dtaen schätzen:
+In dieser Syntax bedeutet `E =~ g4ptattn + g4ptmtrl + g4ptlate + g4ptwork + g4ptpers`, dass die latente Variable `E` durch die fünf Items `g4ptattn`, `g4ptmtrl`, `g4ptlate`, `g4ptwork` und `g4ptpers` gemessen wird. Das Symbol `=~` wird verwendet, um anzugeben, dass es sich um eine Messmodell-Spezifikation handelt, während `~` eine Regression und `~~` eine Varianz oder Kovarianz spezifiziert. Die Items auf der rechten Seite des `=~`-Operators sind die manifesten Indikatoren, die die latente Variable `E` messen. 
+Ähnlich wie bei der Spezifikation von Regressionen in R bedeutet `~ + g4ptmtrl`, dass eine multiplikative Konstante (Ladung, Regressionsgewicht) frei für `g4ptmtrl` geschätzt wird.
+Das Objekt `model_tau` enthält aber nur die Spezifikation unseres $\tau$-generischen Modells, dessen Parameter wir nun anhand der Daten schätzen:
 
 ```{r}
 fit_tau <- cfa(model_tau, data = data_star)
-summary(fit_tau, fit.measures = TRUE, standardized = TRUE)
+summary(fit_tau, fit.measures = TRUE)
+parameterEstimates(fit_tau, standardized = TRUE)
 ```
+
+
+Es gibt auch Pakete, die die geschätzten Parameter in Pfadmodellen übersichtlich (wenn auch nicht publication-ready) darstellen.
+
+
+```{r}
+library(semPlot)
+semPaths(fit_tau, layout = "tree", whatLabels = "std")
+```
+
+Im Output fallen zwei Dinge auf: Erstens sind zwei der signifikanten Ladungen negativ, was angesichts der Itemformulierungen nicht überraschend ist. Zweitens werden keine Intercepts geschätzt. Das ist ein Default in `cfa()`, da die Intercepts für die Frage nach Dimensionalität nicht relevant sind. 
+
+```{r}
+# Modell mit Intercept
+cfa(model_tau, data = data_star, meanstructure = TRUE) |> 
+    summary(fit.measures = TRUE)
+```
+
+## $\tau$-paralleles Messmodell
+Das $\tau$-generische Messmodell oben zeigte sehr hohe Fit-Indices, aber es ist natürlich auch sehr flexibel, da alle Ladungen frei geschätzt werden können. Ein $\tau$-paralleles Messmodell schränkt alle Ladungen auf einen Wert ein, was annimmt, dass alle Items gleich trennscharf sind.
+
+```{r}
+model_tau_parallel <- '
+E =~ a*g4ptattn + a*g4ptmtrl + a*g4ptlate + a*g4ptwork + a*g4ptpers
+'
+fit_tau_parallel <- cfa(model_tau_parallel, data = data_star)
+summary(fit_tau_parallel, fit.measures = TRUE)
+```
+
+Der resultierende Fit ist maximal schlecht, was nicht verwunderlich ist angesichts der Tatsache, dass zwei Items invers formuliert sind. Rekodiert man diese, wird die Modellpassung wesentlich besser, wenngleich nicht so gut wie beim $\tau$-generischen Modell, was darauf hindeutet, dass die Ladungen der Items nicht alle gleich sind.
+
+```{r}
+library(tidyverse)
+data_star <- data_star |> 
+  mutate(
+    g4ptmtrl_rec = 6 - g4ptmtrl,
+    g4ptlate_rec = 6 - g4ptlate
+  )
+
+model_tau_parallel2 <- '
+E =~ a*g4ptattn + a*g4ptmtrl_rec + a*g4ptlate_rec + a*g4ptwork + a*g4ptpers
+'
+
+fit_tau_parallel2 <- cfa(model_tau_parallel2, data = data_star)
+summary(fit_tau_parallel2, fit.measures = TRUE)
+```
+
+Liegen zwei genestete Modelle vor - also ist ein Modell der Spezialfall des anderen - kann die Nullhypothese gleicher Modellpassung mit einem Likelihood-Ratio-Test geprüft werden. Das $\tau$-parallele Modell ist ein Spezialfall des $\tau$-generischen Modells, da es die Ladungen auf einen Wert einschränkt. Daher können wir die beiden Modelle vergleichen:
+
+```{r}
+anova(fit_tau, fit_tau_parallel2)
+```
+
+Da der $p$-Wert < .05 ist, können wir die Nullhypothese gleicher Modellpassung ablehnen und schlussfolgern, dass das $\tau$-parallele Modell eine signifikant schlechtere Passung aufweist als das $\tau$-generische Modell.
+
+## Latente (messfehlerbereinigte) Korrelationen
+In diesem Abschnitt wollen wir die latente Korrelation zwischen den Skalen E, I und N schätzen und mit der manifesten messfehlerbehafteten Korrelation vergleichen. 
+Dazu müssen wir zunächst die invers kodierten Items rekodieren und die drei Skalen spezifizieren:
+
+```{r}
+data_star <- data_star |>
+  mutate(
+    E_scalescore = rowMeans(
+      pick(g4ptattn, g4ptmtrl_rec, g4ptlate_rec, g4ptwork, g4ptpers),
+      na.rm = T
+    ),
+    I_scalescore = rowMeans(pick(g4ptdisc, g4ptextr, g4ptdiss), na.rm = T),
+    N_scalescore = rowMeans(pick(g4ptrepr, g4ptanoy), na.rm = T)
+  )
+```
+
+```{r}
+mod_participation <- '
+E =~ g4ptattn + g4ptmtrl_rec + g4ptlate_rec + g4ptwork + g4ptpers
+I =~ g4ptrepr + g4ptanoy
+N =~ g4ptdisc + g4ptextr + g4ptdiss
+'
+
+fit_participation <- cfa(mod_participation, data = data_star)
+summary(fit_participation, fit.measures = TRUE, standardized = TRUE)
+semPaths(fit_participation, what = "std")
+```
+
+### Latente Korrelationen
+Die latenten Korrelationen zwischen den drei Faktoren können direkt aus dem CFA-Output entnommen werden:
+
+```{r}
+# Latente Korrelationen extrahieren
+parameterEstimates(fit_participation, standardized = TRUE) |>
+  filter(op == "~~" & lhs != rhs & lhs %in% c("E", "I", "N"))
+```
+
+### Manifeste Korrelationen der Scale Scores
+Zum Vergleich berechnen wir die manifesten (messfehlerbehafteten) Korrelationen der Skalenmittelwerte:
+
+```{r}
+cor_manifest <- cor(
+  data_star |> select(E_scalescore, I_scalescore, N_scalescore),
+  use = "pairwise.complete.obs"
+)
+cor_manifest
+```
+
+### Minderungskorrektur (Attenuation Correction)
+Die manifesten Korrelationen sind durch Messfehler attenuiert. Mit Spearman's Minderungskorrektur können wir die wahre Korrelation schätzen:
+
+$$
+r_{xy,\text{korrigiert}} = \frac{r_{xy}}{\sqrt{\text{Rel}_x \cdot \text{Rel}_y}}
+$$
+
+```{r}
+# Reliabilitäten (Cronbach's Alpha) berechnen
+library(psych)
+
+alpha_E <- alpha(data_star |> select(g4ptattn, g4ptmtrl_rec, g4ptlate_rec, g4ptwork, g4ptpers))$total$raw_alpha
+alpha_I <- alpha(data_star |> select(g4ptrepr, g4ptanoy))$total$raw_alpha
+alpha_N <- alpha(data_star |> select(g4ptdisc, g4ptextr, g4ptdiss))$total$raw_alpha
+
+# Minderungskorrektur anwenden
+cor_EI_corrected <- cor_manifest["E_scalescore", "I_scalescore"] / sqrt(alpha_E * alpha_I)
+cor_EN_corrected <- cor_manifest["E_scalescore", "N_scalescore"] / sqrt(alpha_E * alpha_N)
+cor_IN_corrected <- cor_manifest["I_scalescore", "N_scalescore"] / sqrt(alpha_I * alpha_N)
+
+# Vergleichstabelle erstellen
+tibble(
+  Korrelation = c("E - I", "E - N", "I - N"),
+  Manifest = c(
+    cor_manifest["E_scalescore", "I_scalescore"],
+    cor_manifest["E_scalescore", "N_scalescore"],
+    cor_manifest["I_scalescore", "N_scalescore"]
+  ),
+  `Minderungskorrigiert` = c(cor_EI_corrected, cor_EN_corrected, cor_IN_corrected),
+  Latent = parameterEstimates(fit_participation, standardized = TRUE) |>
+    filter(op == "~~" & lhs != rhs & lhs %in% c("E", "I", "N")) |>
+    pull(std.all)
+)
+```
+
+Die latenten Korrelationen aus der CFA und die minderungskorrigierten Korrelationen sollten ähnliche Werte aufweisen, da beide Ansätze die Korrelation um Messfehler bereinigen. Die manifesten Korrelationen sind systematisch niedriger, da sie durch die Unreliabilität der Messungen attenuiert sind.
+
+

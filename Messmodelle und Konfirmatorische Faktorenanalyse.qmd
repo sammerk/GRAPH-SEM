@@ -12,7 +12,7 @@ $$
 $$ {#eq-ctt}
 
 
-Daraus lässt sich dass auch eine formale Definition der Reliabilität eines Messinstruments definieren und zwar als das Verhältnis der Varianz des wahren Werts zur Varianz des Messwerts:
+Daraus lässt sich auch eine formale Definition der Reliabilität eines Messinstruments ableiten, als das Verhältnis der Varianz des wahren Werts zur Varianz des Messwerts:
 
 $$
 \text{Reliabilität} = \frac{\text{Var}(\tau)}{\text{Var}(Y)}
@@ -30,8 +30,8 @@ Sie postuliert zunächst ein theoretisches Modell über die Beziehung zwischen l
 
 ![Pfadmodelle dreier Konkurrierender Modelle/Faktorenstrukturen zur Intelligenz](img/intelligencemm.svg){#fig-cfa_models width=100%}
 
-Nun kann zum einen geprüft werden, inwiefern beobachtete Daten mit diesem Modell übereinstimmen, zum anderen kann aber auch die Passung zu konkurrierenden Modellen geprüft werden, z.B. einem Modell, das davon ausgeht, dass es drei voneinander unabhängige Intelligenztypen gibt, die sich nicht auf eine gemeinsame latente Variable zurückführen lassen oder einem Modell das davon ausgeht, das es zwar drei Intelligenztypen gibt, diese aber von einer übergeordneten latenten Variable beeinflusst werden.
-Die Quantifizierung der Passung eines Modell zu Daten kann auf sehr unterscheidliche Art und Weise erfolgen. Eine sehr naheligenede Idee ist sich zu überlegen, welche Korrelationsstruktur die Daten aufweisen sollten, wenn das Modell korrekt ist, und diese mit der tatsächlich vorgefundenen empirisch beobachteten Korrelationsstruktur zu vergleichen.
+Nun kann zum einen geprüft werden, inwiefern beobachtete Daten mit diesem Modell übereinstimmen, zum anderen kann aber auch die Passung zu konkurrierenden Modellen geprüft werden, z.B. einem Modell, das davon ausgeht, dass es drei voneinander unabhängige Intelligenztypen gibt, die sich nicht auf eine gemeinsame latente Variable zurückführen lassen oder einem Modell, das davon ausgeht, das es zwar drei Intelligenztypen gibt, diese aber von einer übergeordneten latenten Variable beeinflusst werden.
+Die Quantifizierung der Passung eines Modells zu Daten kann auf sehr unterschiedliche Art und Weise erfolgen. Eine sehr naheliegende Idee ist, sich zu überlegen, welche Korrelationsstruktur die Daten aufweisen sollten, wenn das Modell korrekt ist, und diese mit der tatsächlich vorgefundenen empirisch beobachteten Korrelationsstruktur zu vergleichen.
 ```{r}
 #| label: fig-corr-heatmaps
 #| fig-cap: "Empirische Korrelationsmatrizen simulierter Daten für die drei postulierten Intelligenzmodelle aus @fig-cfa_models"
@@ -136,7 +136,7 @@ Welche der drei Heatmaps passt zu welchem Modell aus @fig-cfa_models? Diskutiere
 :::
 
 # Die Quantifizierung der Modellpassung
-Wie oben beschrieben, ist die Kernidee der konfirmatorischen Faktorenanalyse Modelle zu postulieren und diese dann anhand von Daten zu verifizieren/falisfizieren. So wären etwa die Daten aus Heatmap A (siehe @fig-corr-heatmaps) Evidenz für das mittlere Modell in @fig-cfa_models. 
+Wie oben beschrieben, ist die Kernidee der konfirmatorischen Faktorenanalyse Modelle zu postulieren und diese dann anhand von Daten zu verifizieren/falsifizieren. So wären etwa die Daten aus Heatmap A (siehe @fig-corr-heatmaps) Evidenz für das mittlere Modell in @fig-cfa_models. 
 Eine Herausforderung stellt nun die Quantifizierung dieser Evidenz dar: So ist zum Beispiel die folgende Heatmap sowohl mit dem mittlerem als auch dem rechten Modell aus @fig-cfa_models einigermaßen vereinbar. Aber welches Modell passt wie viel besser?
 
 ```{r}
@@ -191,7 +191,7 @@ plot_corr_heatmap(cor_ambig)
 
 ## Quantifizierung der Passung eines Messmodells
 Zur Quantifizierung der Passung eines SEM zu einem Datensatz wird sich zu nutze gemacht, dass man die implizierte Kovarianzmatrix eines Modells unter Annahme multivariater Normalverteilung vorhersagen kann. Wie dies genau funktioniert, wird im nächsten Teil für ein Messmodell - das sogenannte $\tau$-kongenerische Messmodell - hergeleitet. 
-Von dieser mdoellimplizierten Kovarianzmatrix $\Sigma(\theta)$ kann dann die Differenz zur empirischen Kovarianzmatrix $S$ auf verschiedene Art und Weise quantifiziert werden.
+Von dieser der modellimplizierten Kovarianzmatrix $\Sigma(\theta)$ kann dann die Differenz zur empirischen Kovarianzmatrix $S$ auf verschiedene Art und Weise quantifiziert werden.
 
 
 ## Das $\tau$-kongenerische Messmodell
@@ -272,7 +272,7 @@ $$ {#eq-likelihood}
 
 wobei $N$ die Stichprobengröße, $p$ die Anzahl der Indikatoren, $\mathbf{x}_i$ der Beobachtungsvektor der $i$-ten Person und $\boldsymbol{\Sigma}(\boldsymbol{\theta})$ die modellimplizierte Kovarianzmatrix ist.
 
-Da man sich unter dieser doch recht Umfangreichen Formel kaum etwas vorstellen kann ist in folgendem Kasten ein Minimalbeispiel für die Maximum-Likelihood-Schätzung eines Parameters gegeben.
+Da man sich unter dieser doch recht umfangreichen Formel kaum etwas vorstellen kann, ist in folgendem Kasten ein Minimalbeispiel für die Maximum-Likelihood-Schätzung eines Parameters gegeben.
 
 :::callout
 ## Minimalbeispiel: Maximum-Likelihood-Schätzung

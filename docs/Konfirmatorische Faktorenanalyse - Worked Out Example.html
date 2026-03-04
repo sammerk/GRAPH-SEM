@@ -82,6 +82,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="site_libs/bootstrap/bootstrap-9216e3d85de287eb864967ea7072d2d8.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script src="site_libs/quarto-contrib/live-runtime/live-runtime.js" type="module"></script>
 <link href="site_libs/quarto-contrib/live-runtime/live-runtime.css" rel="stylesheet">
+<script src="site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -112,6 +115,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script type="module" src="site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
 <link href="site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="brand.css">
 <link rel="stylesheet" href="exams/webex.css">
@@ -216,7 +248,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#datengrundlage" id="toc-datengrundlage" class="nav-link active" data-scroll-target="#datengrundlage"><span class="header-section-number">1</span> Datengrundlage</a></li>
   <li><a href="#datenimport" id="toc-datenimport" class="nav-link" data-scroll-target="#datenimport"><span class="header-section-number">2</span> Datenimport</a></li>
-  <li><a href="#messmodellvergleiche" id="toc-messmodellvergleiche" class="nav-link" data-scroll-target="#messmodellvergleiche"><span class="header-section-number">3</span> Messmodellvergleiche</a></li>
+  <li><a href="#messmodellvergleiche" id="toc-messmodellvergleiche" class="nav-link" data-scroll-target="#messmodellvergleiche"><span class="header-section-number">3</span> Messmodellvergleiche</a>
+  <ul class="collapse">
+  <li><a href="#tau-generisches-messmodell" id="toc-tau-generisches-messmodell" class="nav-link" data-scroll-target="#tau-generisches-messmodell"><span class="header-section-number">3.1</span> <span class="math inline">\(\tau\)</span>-generisches Messmodell</a></li>
+  <li><a href="#tau-paralleles-messmodell" id="toc-tau-paralleles-messmodell" class="nav-link" data-scroll-target="#tau-paralleles-messmodell"><span class="header-section-number">3.2</span> <span class="math inline">\(\tau\)</span>-paralleles Messmodell</a></li>
+  <li><a href="#latente-messfehlerbereinigte-korrelationen" id="toc-latente-messfehlerbereinigte-korrelationen" class="nav-link" data-scroll-target="#latente-messfehlerbereinigte-korrelationen"><span class="header-section-number">3.3</span> Latente (messfehlerbereinigte) Korrelationen</a>
+  <ul class="collapse">
+  <li><a href="#latente-korrelationen" id="toc-latente-korrelationen" class="nav-link" data-scroll-target="#latente-korrelationen"><span class="header-section-number">3.3.1</span> Latente Korrelationen</a></li>
+  <li><a href="#manifeste-korrelationen-der-scale-scores" id="toc-manifeste-korrelationen-der-scale-scores" class="nav-link" data-scroll-target="#manifeste-korrelationen-der-scale-scores"><span class="header-section-number">3.3.2</span> Manifeste Korrelationen der Scale Scores</a></li>
+  <li><a href="#minderungskorrektur-attenuation-correction" id="toc-minderungskorrektur-attenuation-correction" class="nav-link" data-scroll-target="#minderungskorrektur-attenuation-correction"><span class="header-section-number">3.3.3</span> Minderungskorrektur (Attenuation Correction)</a></li>
+  </ul></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -257,7 +299,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="datengrundlage" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Datengrundlage</h1>
-<p>Wir verwenden in diesem Beispiel Daten des Tenesssse Student Teacher Achievement Ratio (STAR) Projekts, das in den 1980er Jahren durchgeführt wurde. In diesem Projekt wurden Schüler:innen über mehrere Jahre hinweg begleitet, um die Auswirkungen von Klassengröße auf die akademische Leistung zu untersuchen. Die Daten enthalten Informationen über verschiedene Aspekte der Schüler*innen, wie z.B. ihre akademischen Leistungen, Verhaltensweisen und sozioökonomischen Hintergrund.</p>
+<p>Wir verwenden in diesem Beispiel Daten des Tennessee Student/Teacher Achievement Ratio (STAR) Projekts, das in den 1980er Jahren durchgeführt wurde. In diesem Projekt wurden Schüler:innen über mehrere Jahre hinweg begleitet, um die Auswirkungen von Klassengröße auf die akademische Leistung zu untersuchen. Die Daten enthalten Informationen über verschiedene Aspekte der Schüler*innen, wie z.B. ihre akademischen Leistungen, Verhaltensweisen und ihren sozioökonomischen Hintergrund.</p>
 <p>Für die konfirmatorische Faktorenanalyse verwenden wir die Items des <em>STUDENT PARTICIPATION QUESTIONNAIRE</em> (STPQ), der von Lehrer:innen ausgefüllt wurde, um die Beteiligung der Schüler:innen am Unterricht zu bewerten.</p>
 <p>Wir arbeiten heute mit 10 Items, die den Skalen <strong>E = Engagement</strong>, <strong>I = Initiative</strong> und <strong>N = Nonparticipatory Behavior</strong> zugeordnet werden können.</p>
 <table class="table">
@@ -337,7 +379,7 @@ Warnung
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Der Datensatz enthält eine genestete Struktur, da Schüler:innen in Klassen und Schulen organisiert sind. Um nicht gleich mit Multi-Level-Konfirmatorischen-Faktorenanalysen starten zu müssen, habe jeweils eine Schülerin bzw. einen Schüler zufällig aus jeder Klasse ausgewählt. In der Praxis sollte man dies natürlich nicht tun</p>
+<p>Der Datensatz enthält eine genestete Struktur, da Schüler:innen in Klassen und Schulen organisiert sind. Um nicht gleich mit Multi-Level-Konfirmatorischen-Faktorenanalysen starten zu müssen, habe ich jeweils eine Schülerin bzw. einen Schüler zufällig aus jeder Klasse ausgewählt. In der Praxis sollte man dies natürlich nicht tun.</p>
 </div>
 </div>
 </section>
@@ -352,7 +394,644 @@ Warnung
 </section>
 <section id="messmodellvergleiche" class="level1" data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span> Messmodellvergleiche</h1>
-<p>Wir können nun verschiedene Messmodelle spezifizieren und vergleichen, um zu sehen, welches am besten zu den Daten passt. Dazu fange wir am besten mit der</p>
+<p>Wir können nun verschiedene Messmodelle spezifizieren und vergleichen, um zu sehen, welches am besten zu den Daten passt. Dazu fangen wir am besten mit der Engagement-Skala an und spezifizieren zunächst ein <span class="math inline">\(\tau\)</span>-generisches Messmodell. Dazu verwenden wir das <code>{lavaan}</code> Paket und spezifizieren das Modell in der sogenannten lavaan-Syntax, die sich an die natürlichsprachliche Beschreibung von Modellen anlehnt und <a href="https://lavaan.ugent.be/tutorial/syntax1.html">hier</a> sowie <a href="https://lavaan.ugent.be/tutorial/syntax2.html">hier</a> übersichtlich dargestellt wird.</p>
+<section id="tau-generisches-messmodell" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="tau-generisches-messmodell"><span class="header-section-number">3.1</span> <span class="math inline">\(\tau\)</span>-generisches Messmodell</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lavaan)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>This is lavaan 0.6-21
+lavaan is FREE software! Please report any bugs.</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>model_tau <span class="ot">&lt;-</span> <span class="st">'</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="st">E =~ g4ptattn + g4ptmtrl + g4ptlate + g4ptwork + g4ptpers</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="st">'</span></span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>In dieser Syntax bedeutet <code>E =~ g4ptattn + g4ptmtrl + g4ptlate + g4ptwork + g4ptpers</code>, dass die latente Variable <code>E</code> durch die fünf Items <code>g4ptattn</code>, <code>g4ptmtrl</code>, <code>g4ptlate</code>, <code>g4ptwork</code> und <code>g4ptpers</code> gemessen wird. Das Symbol <code>=~</code> wird verwendet, um anzugeben, dass es sich um eine Messmodell-Spezifikation handelt, während <code>~</code> eine Regression und <code>~~</code> eine Varianz oder Kovarianz spezifiziert. Die Items auf der rechten Seite des <code>=~</code>-Operators sind die manifesten Indikatoren, die die latente Variable <code>E</code> messen. Ähnlich wie bei der Spezifikation von Regressionen in R bedeutet <code>~ + g4ptmtrl</code>, dass eine multiplikative Konstante (Ladung, Regressionsgewicht) frei für <code>g4ptmtrl</code> geschätzt wird. Das Objekt <code>model_tau</code> enthält aber nur die Spezifikation unseres <span class="math inline">\(\tau\)</span>-generischen Modells, dessen Parameter wir nun anhand der Daten schätzen:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>fit_tau <span class="ot">&lt;-</span> <span class="fu">cfa</span>(model_tau, <span class="at">data =</span> data_star)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_tau, <span class="at">fit.measures =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>lavaan 0.6-21 ended normally after 18 iterations
+
+  Estimator                                         ML
+  Optimization method                           NLMINB
+  Number of model parameters                        10
+
+                                                  Used       Total
+  Number of observations                           261         262
+
+Model Test User Model:
+                                                      
+  Test statistic                                 9.655
+  Degrees of freedom                                 5
+  P-value (Chi-square)                           0.086
+
+Model Test Baseline Model:
+
+  Test statistic                               437.369
+  Degrees of freedom                                10
+  P-value                                        0.000
+
+User Model versus Baseline Model:
+
+  Comparative Fit Index (CFI)                    0.989
+  Tucker-Lewis Index (TLI)                       0.978
+
+Loglikelihood and Information Criteria:
+
+  Loglikelihood user model (H0)              -1695.407
+  Loglikelihood unrestricted model (H1)             NA
+                                                      
+  Akaike (AIC)                                3410.815
+  Bayesian (BIC)                              3446.460
+  Sample-size adjusted Bayesian (SABIC)       3414.756
+
+Root Mean Square Error of Approximation:
+
+  RMSEA                                          0.060
+  90 Percent confidence interval - lower         0.000
+  90 Percent confidence interval - upper         0.116
+  P-value H_0: RMSEA &lt;= 0.050                    0.325
+  P-value H_0: RMSEA &gt;= 0.080                    0.322
+
+Standardized Root Mean Square Residual:
+
+  SRMR                                           0.033
+
+Parameter Estimates:
+
+  Standard errors                             Standard
+  Information                                 Expected
+  Information saturated (h1) model          Structured
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)
+  E =~                                                
+    g4ptattn          1.000                           
+    g4ptmtrl         -1.078    0.093  -11.545    0.000
+    g4ptlate         -0.380    0.086   -4.433    0.000
+    g4ptwork          1.078    0.080   13.470    0.000
+    g4ptpers          1.007    0.099   10.127    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)
+   .g4ptattn          0.274    0.038    7.129    0.000
+   .g4ptmtrl          0.672    0.071    9.490    0.000
+   .g4ptlate          0.893    0.079   11.250    0.000
+   .g4ptwork          0.290    0.043    6.748    0.000
+   .g4ptpers          0.889    0.087   10.167    0.000
+    E                 0.573    0.076    7.509    0.000</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">parameterEstimates</span>(fit_tau, <span class="at">standardized =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        lhs op      rhs    est    se       z pvalue ci.lower ci.upper std.lv
+1         E =~ g4ptattn  1.000 0.000      NA     NA    1.000    1.000  0.757
+2         E =~ g4ptmtrl -1.078 0.093 -11.545      0   -1.261   -0.895 -0.816
+3         E =~ g4ptlate -0.380 0.086  -4.433      0   -0.549   -0.212 -0.288
+4         E =~ g4ptwork  1.078 0.080  13.470      0    0.921    1.235  0.816
+5         E =~ g4ptpers  1.007 0.099  10.127      0    0.812    1.202  0.763
+6  g4ptattn ~~ g4ptattn  0.274 0.038   7.129      0    0.199    0.349  0.274
+7  g4ptmtrl ~~ g4ptmtrl  0.672 0.071   9.490      0    0.533    0.811  0.672
+8  g4ptlate ~~ g4ptlate  0.893 0.079  11.250      0    0.738    1.049  0.893
+9  g4ptwork ~~ g4ptwork  0.290 0.043   6.748      0    0.206    0.374  0.290
+10 g4ptpers ~~ g4ptpers  0.889 0.087  10.167      0    0.717    1.060  0.889
+11        E ~~        E  0.573 0.076   7.509      0    0.423    0.722  1.000
+   std.all
+1    0.823
+2   -0.705
+3   -0.291
+4    0.835
+5    0.629
+6    0.323
+7    0.502
+8    0.915
+9    0.303
+10   0.604
+11   1.000</code></pre>
+</div>
+</div>
+<p>Es gibt auch Pakete, die die geschätzten Parameter in Pfadmodellen übersichtlich (wenn auch nicht publication-ready) darstellen.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(semPlot)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">semPaths</span>(fit_tau, <span class="at">layout =</span> <span class="st">"tree"</span>, <span class="at">whatLabels =</span> <span class="st">"std"</span>)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="Konfirmatorische-Faktorenanalyse---Worked-Out-Example_files/figure-html/unnamed-chunk-4-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="Konfirmatorische-Faktorenanalyse---Worked-Out-Example_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="2100"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Im Output fallen zwei Dinge auf: Erstens sind zwei der signifikanten Ladungen negativ, was angesichts der Itemformulierungen nicht überraschend ist. Zweitens werden keine Intercepts geschätzt. Das ist ein Default in <code>cfa()</code>, da die Intercepts für die Frage nach Dimensionalität nicht relevant sind.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Modell mit Intercept</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cfa</span>(model_tau, <span class="at">data =</span> data_star, <span class="at">meanstructure =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summary</span>(<span class="at">fit.measures =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>lavaan 0.6-21 ended normally after 18 iterations
+
+  Estimator                                         ML
+  Optimization method                           NLMINB
+  Number of model parameters                        15
+
+                                                  Used       Total
+  Number of observations                           261         262
+
+Model Test User Model:
+                                                      
+  Test statistic                                 9.655
+  Degrees of freedom                                 5
+  P-value (Chi-square)                           0.086
+
+Model Test Baseline Model:
+
+  Test statistic                               437.369
+  Degrees of freedom                                10
+  P-value                                        0.000
+
+User Model versus Baseline Model:
+
+  Comparative Fit Index (CFI)                    0.989
+  Tucker-Lewis Index (TLI)                       0.978
+
+Loglikelihood and Information Criteria:
+
+  Loglikelihood user model (H0)              -1695.407
+  Loglikelihood unrestricted model (H1)             NA
+                                                      
+  Akaike (AIC)                                3420.815
+  Bayesian (BIC)                              3474.283
+  Sample-size adjusted Bayesian (SABIC)       3426.726
+
+Root Mean Square Error of Approximation:
+
+  RMSEA                                          0.060
+  90 Percent confidence interval - lower         0.000
+  90 Percent confidence interval - upper         0.116
+  P-value H_0: RMSEA &lt;= 0.050                    0.325
+  P-value H_0: RMSEA &gt;= 0.080                    0.322
+
+Standardized Root Mean Square Residual:
+
+  SRMR                                           0.028
+
+Parameter Estimates:
+
+  Standard errors                             Standard
+  Information                                 Expected
+  Information saturated (h1) model          Structured
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)
+  E =~                                                
+    g4ptattn          1.000                           
+    g4ptmtrl         -1.078    0.093  -11.545    0.000
+    g4ptlate         -0.380    0.086   -4.433    0.000
+    g4ptwork          1.078    0.080   13.470    0.000
+    g4ptpers          1.007    0.099   10.127    0.000
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)
+   .g4ptattn          3.805    0.057   66.791    0.000
+   .g4ptmtrl          2.479    0.072   34.626    0.000
+   .g4ptlate          1.544    0.061   25.250    0.000
+   .g4ptwork          4.130    0.061   68.237    0.000
+   .g4ptpers          3.272    0.075   43.598    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)
+   .g4ptattn          0.274    0.038    7.129    0.000
+   .g4ptmtrl          0.672    0.071    9.490    0.000
+   .g4ptlate          0.893    0.079   11.250    0.000
+   .g4ptwork          0.290    0.043    6.748    0.000
+   .g4ptpers          0.889    0.087   10.167    0.000
+    E                 0.573    0.076    7.509    0.000</code></pre>
+</div>
+</div>
+</section>
+<section id="tau-paralleles-messmodell" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="tau-paralleles-messmodell"><span class="header-section-number">3.2</span> <span class="math inline">\(\tau\)</span>-paralleles Messmodell</h2>
+<p>Das <span class="math inline">\(\tau\)</span>-generische Messmodell oben zeigte sehr hohe Fit-Indices, aber es ist natürlich auch sehr flexibel, da alle Ladungen frei geschätzt werden können. Ein <span class="math inline">\(\tau\)</span>-paralleles Messmodell schränkt alle Ladungen auf einen Wert ein, was annimmt, dass alle Items gleich trennscharf sind.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>model_tau_parallel <span class="ot">&lt;-</span> <span class="st">'</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="st">E =~ a*g4ptattn + a*g4ptmtrl + a*g4ptlate + a*g4ptwork + a*g4ptpers</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="st">'</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>fit_tau_parallel <span class="ot">&lt;-</span> <span class="fu">cfa</span>(model_tau_parallel, <span class="at">data =</span> data_star)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated lv variances are negative</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_tau_parallel, <span class="at">fit.measures =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>lavaan 0.6-21 ended normally after 18 iterations
+
+  Estimator                                         ML
+  Optimization method                           NLMINB
+  Number of model parameters                         6
+
+                                                  Used       Total
+  Number of observations                           261         262
+
+Model Test User Model:
+                                                      
+  Test statistic                               437.283
+  Degrees of freedom                                 9
+  P-value (Chi-square)                           0.000
+
+Model Test Baseline Model:
+
+  Test statistic                               437.369
+  Degrees of freedom                                10
+  P-value                                        0.000
+
+User Model versus Baseline Model:
+
+  Comparative Fit Index (CFI)                    0.000
+  Tucker-Lewis Index (TLI)                      -0.113
+
+Loglikelihood and Information Criteria:
+
+  Loglikelihood user model (H0)              -1909.222
+  Loglikelihood unrestricted model (H1)             NA
+                                                      
+  Akaike (AIC)                                3830.443
+  Bayesian (BIC)                              3851.830
+  Sample-size adjusted Bayesian (SABIC)       3832.808
+
+Root Mean Square Error of Approximation:
+
+  RMSEA                                          0.427
+  90 Percent confidence interval - lower         0.393
+  90 Percent confidence interval - upper         0.462
+  P-value H_0: RMSEA &lt;= 0.050                    0.000
+  P-value H_0: RMSEA &gt;= 0.080                    1.000
+
+Standardized Root Mean Square Residual:
+
+  SRMR                                           0.374
+
+Parameter Estimates:
+
+  Standard errors                             Standard
+  Information                                 Expected
+  Information saturated (h1) model          Structured
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)
+  E =~                                                
+    g4ptattn   (a)    1.000                           
+    g4ptmtrl   (a)    1.000                           
+    g4ptlate   (a)    1.000                           
+    g4ptwork   (a)    1.000                           
+    g4ptpers   (a)    1.000                           
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)
+   .g4ptattn          0.862    0.078   11.080    0.000
+   .g4ptmtrl          1.321    0.117   11.297    0.000
+   .g4ptlate          0.980    0.088   11.165    0.000
+   .g4ptwork          0.973    0.087   11.161    0.000
+   .g4ptpers          1.492    0.132   11.331    0.000
+    E                -0.009    0.021   -0.424    0.671</code></pre>
+</div>
+</div>
+<p>Der resultierende Fit ist maximal schlecht, was nicht verwunderlich ist angesichts der Tatsache, dass zwei Items invers formuliert sind. Rekodiert man diese, wird die Modellpassung wesentlich besser, wenngleich nicht so gut wie beim <span class="math inline">\(\tau\)</span>-generischen Modell, was darauf hindeutet, dass die Ladungen der Items nicht alle gleich sind.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.2.0     ✔ readr     2.1.6
+✔ forcats   1.0.1     ✔ stringr   1.6.0
+✔ ggplot2   4.0.1     ✔ tibble    3.3.1
+✔ lubridate 1.9.4     ✔ tidyr     1.3.2
+✔ purrr     1.2.1     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>data_star <span class="ot">&lt;-</span> data_star <span class="sc">|&gt;</span> </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">g4ptmtrl_rec =</span> <span class="dv">6</span> <span class="sc">-</span> g4ptmtrl,</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">g4ptlate_rec =</span> <span class="dv">6</span> <span class="sc">-</span> g4ptlate</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>model_tau_parallel2 <span class="ot">&lt;-</span> <span class="st">'</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="st">E =~ a*g4ptattn + a*g4ptmtrl_rec + a*g4ptlate_rec + a*g4ptwork + a*g4ptpers</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="st">'</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>fit_tau_parallel2 <span class="ot">&lt;-</span> <span class="fu">cfa</span>(model_tau_parallel2, <span class="at">data =</span> data_star)</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_tau_parallel2, <span class="at">fit.measures =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>lavaan 0.6-21 ended normally after 16 iterations
+
+  Estimator                                         ML
+  Optimization method                           NLMINB
+  Number of model parameters                         6
+
+                                                  Used       Total
+  Number of observations                           261         262
+
+Model Test User Model:
+                                                      
+  Test statistic                                64.422
+  Degrees of freedom                                 9
+  P-value (Chi-square)                           0.000
+
+Model Test Baseline Model:
+
+  Test statistic                               437.369
+  Degrees of freedom                                10
+  P-value                                        0.000
+
+User Model versus Baseline Model:
+
+  Comparative Fit Index (CFI)                    0.870
+  Tucker-Lewis Index (TLI)                       0.856
+
+Loglikelihood and Information Criteria:
+
+  Loglikelihood user model (H0)              -1722.791
+  Loglikelihood unrestricted model (H1)             NA
+                                                      
+  Akaike (AIC)                                3457.582
+  Bayesian (BIC)                              3478.969
+  Sample-size adjusted Bayesian (SABIC)       3459.947
+
+Root Mean Square Error of Approximation:
+
+  RMSEA                                          0.154
+  90 Percent confidence interval - lower         0.120
+  90 Percent confidence interval - upper         0.190
+  P-value H_0: RMSEA &lt;= 0.050                    0.000
+  P-value H_0: RMSEA &gt;= 0.080                    1.000
+
+Standardized Root Mean Square Residual:
+
+  SRMR                                           0.229
+
+Parameter Estimates:
+
+  Standard errors                             Standard
+  Information                                 Expected
+  Information saturated (h1) model          Structured
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)
+  E =~                                                
+    g4ptattn   (a)    1.000                           
+    g4ptmtrl_r (a)    1.000                           
+    g4ptlat_rc (a)    1.000                           
+    g4ptwork   (a)    1.000                           
+    g4ptpers   (a)    1.000                           
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)
+   .g4ptattn          0.276    0.035    7.871    0.000
+   .g4ptmtrl_rec      0.684    0.068   10.010    0.000
+   .g4ptlate_rec      1.009    0.096   10.472    0.000
+   .g4ptwork          0.331    0.039    8.447    0.000
+   .g4ptpers          0.908    0.088   10.364    0.000
+    E                 0.539    0.056    9.620    0.000</code></pre>
+</div>
+</div>
+<p>Liegen zwei genestete Modelle vor - also ist ein Modell der Spezialfall des anderen - kann die Nullhypothese gleicher Modellpassung mit einem Likelihood-Ratio-Test geprüft werden. Das <span class="math inline">\(\tau\)</span>-parallele Modell ist ein Spezialfall des <span class="math inline">\(\tau\)</span>-generischen Modells, da es die Ladungen auf einen Wert einschränkt. Daher können wir die beiden Modelle vergleichen:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(fit_tau, fit_tau_parallel2)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: lavaan-&gt;lavTestLRT():  
+   some models are based on a different set of observed variables</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Chi-Squared Difference Test
+
+                  Df    AIC    BIC   Chisq Chisq diff   RMSEA Df diff
+fit_tau            5 3410.8 3446.5  9.6547                           
+fit_tau_parallel2  9 3457.6 3479.0 64.4218     54.767 0.22052       4
+                  Pr(&gt;Chisq)    
+fit_tau                         
+fit_tau_parallel2  3.635e-11 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<p>Da der <span class="math inline">\(p\)</span>-Wert &lt; .05 ist, können wir die Nullhypothese gleicher Modellpassung ablehnen und schlussfolgern, dass das <span class="math inline">\(\tau\)</span>-parallele Modell eine signifikant schlechtere Passung aufweist als das <span class="math inline">\(\tau\)</span>-generische Modell.</p>
+</section>
+<section id="latente-messfehlerbereinigte-korrelationen" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="latente-messfehlerbereinigte-korrelationen"><span class="header-section-number">3.3</span> Latente (messfehlerbereinigte) Korrelationen</h2>
+<p>In diesem Abschnitt wollen wir die latente Korrelation zwischen den Skalen E, I und N schätzen und mit der manifesten messfehlerbehafteten Korrelation vergleichen. Dazu müssen wir zunächst die invers kodierten Items rekodieren und die drei Skalen spezifizieren:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>data_star <span class="ot">&lt;-</span> data_star <span class="sc">|&gt;</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">E_scalescore =</span> <span class="fu">rowMeans</span>(</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">pick</span>(g4ptattn, g4ptmtrl_rec, g4ptlate_rec, g4ptwork, g4ptpers),</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">na.rm =</span> T</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">I_scalescore =</span> <span class="fu">rowMeans</span>(<span class="fu">pick</span>(g4ptdisc, g4ptextr, g4ptdiss), <span class="at">na.rm =</span> T),</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">N_scalescore =</span> <span class="fu">rowMeans</span>(<span class="fu">pick</span>(g4ptrepr, g4ptanoy), <span class="at">na.rm =</span> T)</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>mod_participation <span class="ot">&lt;-</span> <span class="st">'</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="st">E =~ g4ptattn + g4ptmtrl_rec + g4ptlate_rec + g4ptwork + g4ptpers</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="st">I =~ g4ptrepr + g4ptanoy</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="st">N =~ g4ptdisc + g4ptextr + g4ptdiss</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="st">'</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>fit_participation <span class="ot">&lt;-</span> <span class="fu">cfa</span>(mod_participation, <span class="at">data =</span> data_star)</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_participation, <span class="at">fit.measures =</span> <span class="cn">TRUE</span>, <span class="at">standardized =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>lavaan 0.6-21 ended normally after 33 iterations
+
+  Estimator                                         ML
+  Optimization method                           NLMINB
+  Number of model parameters                        23
+
+                                                  Used       Total
+  Number of observations                           260         262
+
+Model Test User Model:
+                                                      
+  Test statistic                                77.092
+  Degrees of freedom                                32
+  P-value (Chi-square)                           0.000
+
+Model Test Baseline Model:
+
+  Test statistic                              1162.084
+  Degrees of freedom                                45
+  P-value                                        0.000
+
+User Model versus Baseline Model:
+
+  Comparative Fit Index (CFI)                    0.960
+  Tucker-Lewis Index (TLI)                       0.943
+
+Loglikelihood and Information Criteria:
+
+  Loglikelihood user model (H0)              -3391.411
+  Loglikelihood unrestricted model (H1)             NA
+                                                      
+  Akaike (AIC)                                6828.821
+  Bayesian (BIC)                              6910.717
+  Sample-size adjusted Bayesian (SABIC)       6837.798
+
+Root Mean Square Error of Approximation:
+
+  RMSEA                                          0.074
+  90 Percent confidence interval - lower         0.053
+  90 Percent confidence interval - upper         0.095
+  P-value H_0: RMSEA &lt;= 0.050                    0.033
+  P-value H_0: RMSEA &gt;= 0.080                    0.327
+
+Standardized Root Mean Square Residual:
+
+  SRMR                                           0.053
+
+Parameter Estimates:
+
+  Standard errors                             Standard
+  Information                                 Expected
+  Information saturated (h1) model          Structured
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  E =~                                                                  
+    g4ptattn          1.000                               0.757    0.836
+    g4ptmtrl_rec      1.066    0.086   12.414    0.000    0.807    0.703
+    g4ptlate_rec      0.392    0.083    4.706    0.000    0.297    0.300
+    g4ptwork          1.055    0.069   15.265    0.000    0.798    0.817
+    g4ptpers          1.020    0.093   10.912    0.000    0.772    0.635
+  I =~                                                                  
+    g4ptrepr          1.000                               0.904    0.849
+    g4ptanoy          1.050    0.080   13.123    0.000    0.949    0.842
+  N =~                                                                  
+    g4ptdisc          1.000                               0.846    0.739
+    g4ptextr          1.083    0.102   10.587    0.000    0.916    0.753
+    g4ptdiss          0.850    0.103    8.292    0.000    0.719    0.573
+
+Covariances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  E ~~                                                                  
+    I                -0.523    0.065   -7.999    0.000   -0.764   -0.764
+    N                 0.537    0.069    7.835    0.000    0.839    0.839
+  I ~~                                                                  
+    N                -0.317    0.066   -4.783    0.000   -0.415   -0.415
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .g4ptattn          0.247    0.029    8.414    0.000    0.247    0.302
+   .g4ptmtrl_rec      0.667    0.066   10.183    0.000    0.667    0.506
+   .g4ptlate_rec      0.891    0.079   11.281    0.000    0.891    0.910
+   .g4ptwork          0.317    0.036    8.826    0.000    0.317    0.332
+   .g4ptpers          0.880    0.083   10.561    0.000    0.880    0.596
+   .g4ptrepr          0.315    0.055    5.754    0.000    0.315    0.279
+   .g4ptanoy          0.369    0.061    6.009    0.000    0.369    0.291
+   .g4ptdisc          0.594    0.072    8.277    0.000    0.594    0.453
+   .g4ptextr          0.642    0.080    7.997    0.000    0.642    0.433
+   .g4ptdiss          1.061    0.104   10.191    0.000    1.061    0.672
+    E                 0.572    0.071    8.021    0.000    1.000    1.000
+    I                 0.817    0.107    7.673    0.000    1.000    1.000
+    N                 0.716    0.114    6.301    0.000    1.000    1.000</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">semPaths</span>(fit_participation, <span class="at">what =</span> <span class="st">"std"</span>)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="Konfirmatorische-Faktorenanalyse---Worked-Out-Example_files/figure-html/unnamed-chunk-10-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="Konfirmatorische-Faktorenanalyse---Worked-Out-Example_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="2100"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<section id="latente-korrelationen" class="level3" data-number="3.3.1">
+<h3 data-number="3.3.1" class="anchored" data-anchor-id="latente-korrelationen"><span class="header-section-number">3.3.1</span> Latente Korrelationen</h3>
+<p>Die latenten Korrelationen zwischen den drei Faktoren können direkt aus dem CFA-Output entnommen werden:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Latente Korrelationen extrahieren</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">parameterEstimates</span>(fit_participation, <span class="at">standardized =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(op <span class="sc">==</span> <span class="st">"~~"</span> <span class="sc">&amp;</span> lhs <span class="sc">!=</span> rhs <span class="sc">&amp;</span> lhs <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"E"</span>, <span class="st">"I"</span>, <span class="st">"N"</span>))</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  lhs op rhs    est    se      z pvalue ci.lower ci.upper std.lv std.all
+1   E ~~   I -0.523 0.065 -7.999      0   -0.651   -0.395 -0.764  -0.764
+2   E ~~   N  0.537 0.069  7.835      0    0.403    0.671  0.839   0.839
+3   I ~~   N -0.317 0.066 -4.783      0   -0.447   -0.187 -0.415  -0.415</code></pre>
+</div>
+</div>
+</section>
+<section id="manifeste-korrelationen-der-scale-scores" class="level3" data-number="3.3.2">
+<h3 data-number="3.3.2" class="anchored" data-anchor-id="manifeste-korrelationen-der-scale-scores"><span class="header-section-number">3.3.2</span> Manifeste Korrelationen der Scale Scores</h3>
+<p>Zum Vergleich berechnen wir die manifesten (messfehlerbehafteten) Korrelationen der Skalenmittelwerte:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>cor_manifest <span class="ot">&lt;-</span> <span class="fu">cor</span>(</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  data_star <span class="sc">|&gt;</span> <span class="fu">select</span>(E_scalescore, I_scalescore, N_scalescore),</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">use =</span> <span class="st">"pairwise.complete.obs"</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>cor_manifest</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>             E_scalescore I_scalescore N_scalescore
+E_scalescore    1.0000000    0.6418498   -0.6111717
+I_scalescore    0.6418498    1.0000000   -0.2972665
+N_scalescore   -0.6111717   -0.2972665    1.0000000</code></pre>
+</div>
+</div>
+</section>
+<section id="minderungskorrektur-attenuation-correction" class="level3" data-number="3.3.3">
+<h3 data-number="3.3.3" class="anchored" data-anchor-id="minderungskorrektur-attenuation-correction"><span class="header-section-number">3.3.3</span> Minderungskorrektur (Attenuation Correction)</h3>
+<p>Die manifesten Korrelationen sind durch Messfehler attenuiert. Mit Spearman’s Minderungskorrektur können wir die wahre Korrelation schätzen:</p>
+<p><span class="math display">\[
+r_{xy,\text{korrigiert}} = \frac{r_{xy}}{\sqrt{\text{Rel}_x \cdot \text{Rel}_y}}
+\]</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Reliabilitäten (Cronbach's Alpha) berechnen</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'psych'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:ggplot2':
+
+    %+%, alpha</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:lavaan':
+
+    cor2cov</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>alpha_E <span class="ot">&lt;-</span> <span class="fu">alpha</span>(data_star <span class="sc">|&gt;</span> <span class="fu">select</span>(g4ptattn, g4ptmtrl_rec, g4ptlate_rec, g4ptwork, g4ptpers))<span class="sc">$</span>total<span class="sc">$</span>raw_alpha</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>alpha_I <span class="ot">&lt;-</span> <span class="fu">alpha</span>(data_star <span class="sc">|&gt;</span> <span class="fu">select</span>(g4ptrepr, g4ptanoy))<span class="sc">$</span>total<span class="sc">$</span>raw_alpha</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>alpha_N <span class="ot">&lt;-</span> <span class="fu">alpha</span>(data_star <span class="sc">|&gt;</span> <span class="fu">select</span>(g4ptdisc, g4ptextr, g4ptdiss))<span class="sc">$</span>total<span class="sc">$</span>raw_alpha</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Minderungskorrektur anwenden</span></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>cor_EI_corrected <span class="ot">&lt;-</span> cor_manifest[<span class="st">"E_scalescore"</span>, <span class="st">"I_scalescore"</span>] <span class="sc">/</span> <span class="fu">sqrt</span>(alpha_E <span class="sc">*</span> alpha_I)</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>cor_EN_corrected <span class="ot">&lt;-</span> cor_manifest[<span class="st">"E_scalescore"</span>, <span class="st">"N_scalescore"</span>] <span class="sc">/</span> <span class="fu">sqrt</span>(alpha_E <span class="sc">*</span> alpha_N)</span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>cor_IN_corrected <span class="ot">&lt;-</span> cor_manifest[<span class="st">"I_scalescore"</span>, <span class="st">"N_scalescore"</span>] <span class="sc">/</span> <span class="fu">sqrt</span>(alpha_I <span class="sc">*</span> alpha_N)</span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Vergleichstabelle erstellen</span></span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">Korrelation =</span> <span class="fu">c</span>(<span class="st">"E - I"</span>, <span class="st">"E - N"</span>, <span class="st">"I - N"</span>),</span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">Manifest =</span> <span class="fu">c</span>(</span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a>    cor_manifest[<span class="st">"E_scalescore"</span>, <span class="st">"I_scalescore"</span>],</span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a>    cor_manifest[<span class="st">"E_scalescore"</span>, <span class="st">"N_scalescore"</span>],</span>
+<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a>    cor_manifest[<span class="st">"I_scalescore"</span>, <span class="st">"N_scalescore"</span>]</span>
+<span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb35-18"><a href="#cb35-18" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Minderungskorrigiert</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(cor_EI_corrected, cor_EN_corrected, cor_IN_corrected),</span>
+<span id="cb35-19"><a href="#cb35-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">Latent =</span> <span class="fu">parameterEstimates</span>(fit_participation, <span class="at">standardized =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb35-20"><a href="#cb35-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(op <span class="sc">==</span> <span class="st">"~~"</span> <span class="sc">&amp;</span> lhs <span class="sc">!=</span> rhs <span class="sc">&amp;</span> lhs <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"E"</span>, <span class="st">"I"</span>, <span class="st">"N"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb35-21"><a href="#cb35-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pull</span>(std.all)</span>
+<span id="cb35-22"><a href="#cb35-22" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 4
+  Korrelation Manifest Minderungskorrigiert Latent
+  &lt;chr&gt;          &lt;dbl&gt;                &lt;dbl&gt;  &lt;dbl&gt;
+1 E - I          0.642                0.798 -0.764
+2 E - N         -0.611               -0.806  0.839
+3 I - N         -0.297               -0.380 -0.415</code></pre>
+</div>
+</div>
+<p>Die latenten Korrelationen aus der CFA und die minderungskorrigierten Korrelationen sollten ähnliche Werte aufweisen, da beide Ansätze die Korrelation um Messfehler bereinigen. Die manifesten Korrelationen sind systematisch niedriger, da sie durch die Unreliabilität der Messungen attenuiert sind.</p>
 
 
 <script type="ojs-module-contents">
@@ -369,6 +1048,8 @@ eyJjb250ZW50cyI6W119
 <script type="vfs-file">
 W10=
 </script>
+</section>
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -1369,6 +2050,38 @@ window._ojs.runtime.interpretFromScriptTags();
   });
   </script>
 </div> <!-- /content -->
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
 
 
 
