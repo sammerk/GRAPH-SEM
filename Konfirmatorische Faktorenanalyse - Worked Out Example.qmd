@@ -174,8 +174,8 @@ $$
 library(psych)
 
 alpha_E <- alpha(data_star |> select(g4ptattn, g4ptmtrl_rec, g4ptlate_rec, g4ptwork, g4ptpers))$total$raw_alpha
-alpha_I <- alpha(data_star |> select(g4ptrepr, g4ptanoy))$total$raw_alpha
-alpha_N <- alpha(data_star |> select(g4ptdisc, g4ptextr, g4ptdiss))$total$raw_alpha
+alpha_N <- alpha(data_star |> select(g4ptrepr, g4ptanoy))$total$raw_alpha
+alpha_I <- alpha(data_star |> select(g4ptdisc, g4ptextr, g4ptdiss))$total$raw_alpha
 
 # Minderungskorrektur anwenden
 cor_EI_corrected <- cor_manifest["E_scalescore", "I_scalescore"] / sqrt(alpha_E * alpha_I)
@@ -186,11 +186,11 @@ cor_IN_corrected <- cor_manifest["I_scalescore", "N_scalescore"] / sqrt(alpha_I 
 tibble(
   Korrelation = c("E - I", "E - N", "I - N"),
   Manifest = c(
-    cor_manifest["E_scalescore", "I_scalescore"],
     cor_manifest["E_scalescore", "N_scalescore"],
+    cor_manifest["E_scalescore", "I_scalescore"],
     cor_manifest["I_scalescore", "N_scalescore"]
   ),
-  `Minderungskorrigiert` = c(cor_EI_corrected, cor_EN_corrected, cor_IN_corrected),
+  `Minderungskorrigiert` = c(cor_EN_corrected,cor_EI_corrected, cor_IN_corrected),
   Latent = parameterEstimates(fit_participation, standardized = TRUE) |>
     filter(op == "~~" & lhs != rhs & lhs %in% c("E", "I", "N")) |>
     pull(std.all)

@@ -1001,8 +1001,8 @@ Attaching package: 'psych'</code></pre>
     cor2cov</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>alpha_E <span class="ot">&lt;-</span> <span class="fu">alpha</span>(data_star <span class="sc">|&gt;</span> <span class="fu">select</span>(g4ptattn, g4ptmtrl_rec, g4ptlate_rec, g4ptwork, g4ptpers))<span class="sc">$</span>total<span class="sc">$</span>raw_alpha</span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>alpha_I <span class="ot">&lt;-</span> <span class="fu">alpha</span>(data_star <span class="sc">|&gt;</span> <span class="fu">select</span>(g4ptrepr, g4ptanoy))<span class="sc">$</span>total<span class="sc">$</span>raw_alpha</span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>alpha_N <span class="ot">&lt;-</span> <span class="fu">alpha</span>(data_star <span class="sc">|&gt;</span> <span class="fu">select</span>(g4ptdisc, g4ptextr, g4ptdiss))<span class="sc">$</span>total<span class="sc">$</span>raw_alpha</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>alpha_N <span class="ot">&lt;-</span> <span class="fu">alpha</span>(data_star <span class="sc">|&gt;</span> <span class="fu">select</span>(g4ptrepr, g4ptanoy))<span class="sc">$</span>total<span class="sc">$</span>raw_alpha</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>alpha_I <span class="ot">&lt;-</span> <span class="fu">alpha</span>(data_star <span class="sc">|&gt;</span> <span class="fu">select</span>(g4ptdisc, g4ptextr, g4ptdiss))<span class="sc">$</span>total<span class="sc">$</span>raw_alpha</span>
 <span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Minderungskorrektur anwenden</span></span>
 <span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>cor_EI_corrected <span class="ot">&lt;-</span> cor_manifest[<span class="st">"E_scalescore"</span>, <span class="st">"I_scalescore"</span>] <span class="sc">/</span> <span class="fu">sqrt</span>(alpha_E <span class="sc">*</span> alpha_I)</span>
@@ -1013,11 +1013,11 @@ Attaching package: 'psych'</code></pre>
 <span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
 <span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">Korrelation =</span> <span class="fu">c</span>(<span class="st">"E - I"</span>, <span class="st">"E - N"</span>, <span class="st">"I - N"</span>),</span>
 <span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">Manifest =</span> <span class="fu">c</span>(</span>
-<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a>    cor_manifest[<span class="st">"E_scalescore"</span>, <span class="st">"I_scalescore"</span>],</span>
-<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a>    cor_manifest[<span class="st">"E_scalescore"</span>, <span class="st">"N_scalescore"</span>],</span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a>    cor_manifest[<span class="st">"E_scalescore"</span>, <span class="st">"N_scalescore"</span>],</span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a>    cor_manifest[<span class="st">"E_scalescore"</span>, <span class="st">"I_scalescore"</span>],</span>
 <span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a>    cor_manifest[<span class="st">"I_scalescore"</span>, <span class="st">"N_scalescore"</span>]</span>
 <span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a>  ),</span>
-<span id="cb35-18"><a href="#cb35-18" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Minderungskorrigiert</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(cor_EI_corrected, cor_EN_corrected, cor_IN_corrected),</span>
+<span id="cb35-18"><a href="#cb35-18" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Minderungskorrigiert</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(cor_EN_corrected,cor_EI_corrected, cor_IN_corrected),</span>
 <span id="cb35-19"><a href="#cb35-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">Latent =</span> <span class="fu">parameterEstimates</span>(fit_participation, <span class="at">standardized =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
 <span id="cb35-20"><a href="#cb35-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(op <span class="sc">==</span> <span class="st">"~~"</span> <span class="sc">&amp;</span> lhs <span class="sc">!=</span> rhs <span class="sc">&amp;</span> lhs <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"E"</span>, <span class="st">"I"</span>, <span class="st">"N"</span>)) <span class="sc">|&gt;</span></span>
 <span id="cb35-21"><a href="#cb35-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pull</span>(std.all)</span>
@@ -1026,8 +1026,8 @@ Attaching package: 'psych'</code></pre>
 <pre><code># A tibble: 3 × 4
   Korrelation Manifest Minderungskorrigiert Latent
   &lt;chr&gt;          &lt;dbl&gt;                &lt;dbl&gt;  &lt;dbl&gt;
-1 E - I          0.642                0.798 -0.764
-2 E - N         -0.611               -0.806  0.839
+1 E - I         -0.611               -0.760 -0.764
+2 E - N          0.642                0.847  0.839
 3 I - N         -0.297               -0.380 -0.415</code></pre>
 </div>
 </div>
