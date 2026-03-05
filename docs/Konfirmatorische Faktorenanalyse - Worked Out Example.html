@@ -836,8 +836,8 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>mod_participation <span class="ot">&lt;-</span> <span class="st">'</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="st">E =~ g4ptattn + g4ptmtrl_rec + g4ptlate_rec + g4ptwork + g4ptpers</span></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="st">I =~ g4ptrepr + g4ptanoy</span></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="st">N =~ g4ptdisc + g4ptextr + g4ptdiss</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="st">N =~ g4ptrepr + g4ptanoy</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="st">I =~ g4ptdisc + g4ptextr + g4ptdiss</span></span>
 <span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="st">'</span></span>
 <span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>fit_participation <span class="ot">&lt;-</span> <span class="fu">cfa</span>(mod_participation, <span class="at">data =</span> data_star)</span>
@@ -904,10 +904,10 @@ Latent Variables:
     g4ptlate_rec      0.392    0.083    4.706    0.000    0.297    0.300
     g4ptwork          1.055    0.069   15.265    0.000    0.798    0.817
     g4ptpers          1.020    0.093   10.912    0.000    0.772    0.635
-  I =~                                                                  
+  N =~                                                                  
     g4ptrepr          1.000                               0.904    0.849
     g4ptanoy          1.050    0.080   13.123    0.000    0.949    0.842
-  N =~                                                                  
+  I =~                                                                  
     g4ptdisc          1.000                               0.846    0.739
     g4ptextr          1.083    0.102   10.587    0.000    0.916    0.753
     g4ptdiss          0.850    0.103    8.292    0.000    0.719    0.573
@@ -915,10 +915,10 @@ Latent Variables:
 Covariances:
                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
   E ~~                                                                  
-    I                -0.523    0.065   -7.999    0.000   -0.764   -0.764
-    N                 0.537    0.069    7.835    0.000    0.839    0.839
-  I ~~                                                                  
-    N                -0.317    0.066   -4.783    0.000   -0.415   -0.415
+    N                -0.523    0.065   -7.999    0.000   -0.764   -0.764
+    I                 0.537    0.069    7.835    0.000    0.839    0.839
+  N ~~                                                                  
+    I                -0.317    0.066   -4.783    0.000   -0.415   -0.415
 
 Variances:
                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
@@ -933,8 +933,8 @@ Variances:
    .g4ptextr          0.642    0.080    7.997    0.000    0.642    0.433
    .g4ptdiss          1.061    0.104   10.191    0.000    1.061    0.672
     E                 0.572    0.071    8.021    0.000    1.000    1.000
-    I                 0.817    0.107    7.673    0.000    1.000    1.000
-    N                 0.716    0.114    6.301    0.000    1.000    1.000</code></pre>
+    N                 0.817    0.107    7.673    0.000    1.000    1.000
+    I                 0.716    0.114    6.301    0.000    1.000    1.000</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">semPaths</span>(fit_participation, <span class="at">what =</span> <span class="st">"std"</span>)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
@@ -954,9 +954,9 @@ Variances:
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(op <span class="sc">==</span> <span class="st">"~~"</span> <span class="sc">&amp;</span> lhs <span class="sc">!=</span> rhs <span class="sc">&amp;</span> lhs <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"E"</span>, <span class="st">"I"</span>, <span class="st">"N"</span>))</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  lhs op rhs    est    se      z pvalue ci.lower ci.upper std.lv std.all
-1   E ~~   I -0.523 0.065 -7.999      0   -0.651   -0.395 -0.764  -0.764
-2   E ~~   N  0.537 0.069  7.835      0    0.403    0.671  0.839   0.839
-3   I ~~   N -0.317 0.066 -4.783      0   -0.447   -0.187 -0.415  -0.415</code></pre>
+1   E ~~   N -0.523 0.065 -7.999      0   -0.651   -0.395 -0.764  -0.764
+2   E ~~   I  0.537 0.069  7.835      0    0.403    0.671  0.839   0.839
+3   N ~~   I -0.317 0.066 -4.783      0   -0.447   -0.187 -0.415  -0.415</code></pre>
 </div>
 </div>
 </section>

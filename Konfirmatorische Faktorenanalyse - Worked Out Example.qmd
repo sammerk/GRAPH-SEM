@@ -133,8 +133,8 @@ data_star <- data_star |>
 ```{r}
 mod_participation <- '
 E =~ g4ptattn + g4ptmtrl_rec + g4ptlate_rec + g4ptwork + g4ptpers
-I =~ g4ptrepr + g4ptanoy
-N =~ g4ptdisc + g4ptextr + g4ptdiss
+N =~ g4ptrepr + g4ptanoy
+I =~ g4ptdisc + g4ptextr + g4ptdiss
 '
 
 fit_participation <- cfa(mod_participation, data = data_star)
